@@ -1,0 +1,25 @@
+{
+  "name": "document",
+  "displayName": "Document",
+  "description": "사람이 읽기 좋은 한국어 문서를 쓰고 점검하는 스킬 모음",
+  "version": "0.1.0",
+  "author": {
+    "name": "Wonjin Jang"
+  },
+  "keywords": [
+    "document",
+    "writing",
+    "korean",
+    "review"
+  ],
+  "dependencies": [
+    {
+      "name": "k-skill",
+      "marketplace": "k-skill"
+    },
+    {
+      "name": "kb-tools",
+      "marketplace": "daljin-librarian"
+    }
+  ]
+}

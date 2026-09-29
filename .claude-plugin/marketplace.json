@@ -1,0 +1,18 @@
+{
+  "name": "daljin-marketplace",
+  "description": "달진 개인 전용 Claude Code 플러그인 마켓플레이스",
+  "owner": {
+    "name": "Wonjin Jang"
+  },
+  "allowCrossMarketplaceDependenciesOn": [
+    "k-skill",
+    "daljin-librarian"
+  ],
+  "plugins": [
+    {
+      "name": "document",
+      "source": "./plugins/document",
+      "description": "문서 작성 원칙과 문서 점검 스킬, 참조 자료를 가져오는 MCP 묶음"
+    }
+  ]
+}
