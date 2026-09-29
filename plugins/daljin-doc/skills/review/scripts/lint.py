@@ -111,6 +111,7 @@ def lint(text, long_form=False):
         if FENCE.match(line):
             if not in_code:
                 body.append((i + 1, line, "code"))
+                add(i + 1, "코드 표기", "백틱 코드 블록을 쓰지 않아요. 명령은 네 칸 들여써서 보여 줘요", line)
             in_code = not in_code
             continue
         if in_code:
@@ -143,11 +144,11 @@ def lint(text, long_form=False):
             add(no, "빈 줄", "목록이나 표 뒤에 빈 줄 없이 문단이 이어져요", line)
         prev_kind = k
 
-        if k == "code":
+        if k in ("code", "indent"):
             continue
 
         for m in INLINE_CODE.finditer(HTML_COMMENT.sub("", line)):
-            add(no, "코드 표기", "백틱으로 감싼 코드 표기를 쓰지 않아요. 그냥 글자로 쓰고, 입력할 명령은 코드 블록으로 보여 줘요", m.group())
+            add(no, "코드 표기", "백틱으로 감싼 코드 표기를 쓰지 않아요. 그냥 글자로 쓰고, 입력할 명령은 네 칸 들여써서 보여 줘요", m.group())
 
         clean = strip_inline(line)
 
@@ -165,8 +166,6 @@ def lint(text, long_form=False):
         if REFER.search(clean):
             add(no, "참조", "참조만 안내하지 말고 필요한 부분을 직접 옮겨 써요", clean)
 
-        if k in ("indent",):
-            continue
         for unit in text_units(clean, k):
             unit = unit.strip()
             if not HANGUL.search(unit):
@@ -176,7 +175,7 @@ def lint(text, long_form=False):
             if not long_form and len(SENTENCE_END.findall(unit)) >= 2:
                 add(no, "한 줄", "한 줄에 문장이 여러 개예요. 한 줄에 하나씩 나눠 써요", unit)
 
-    chars = sum(len(line.strip()) for _, line, k in body if k not in ("blank", "code"))
+    chars = sum(len(line.strip()) for _, line, k in body if k not in ("blank", "code", "indent"))
     if chars >= LONG_DOC_CHARS:
         if not any(is_toc(t) for _, _, t in headings):
             add(1, "목차", f"긴 글({chars}자)인데 목차가 없어요")
