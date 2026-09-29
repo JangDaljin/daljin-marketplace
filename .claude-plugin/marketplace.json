@@ -10,8 +10,8 @@
   ],
   "plugins": [
     {
-      "name": "document",
-      "source": "./plugins/document",
+      "name": "daljin-doc",
+      "source": "./plugins/daljin-doc",
       "description": "문서 작성 원칙과 문서 점검 스킬, 참조 자료를 가져오는 MCP 묶음"
     }
   ]

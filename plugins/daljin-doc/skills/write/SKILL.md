@@ -1,6 +1,6 @@
 ---
 name: write
-description: 사람이 읽을 문서를 새로 쓰거나 고쳐 쓸 때 따르는 작성 원칙. README, 설계 문서, 보고서, 회의록, 위키, 지식베이스 문서, PR 설명, Confluence나 Notion 페이지처럼 사람이 읽는 글을 만들 때 항상 먼저 적용한다. "문서 써줘", "정리해줘", "README 만들어줘", "보고서 작성", "위키에 올릴 글", "/document:write" 같은 요청에 사용.
+description: 사람이 읽을 문서를 새로 쓰거나 고쳐 쓸 때 따르는 작성 원칙. README, 설계 문서, 보고서, 회의록, 위키, 지식베이스 문서, PR 설명, Confluence나 Notion 페이지처럼 사람이 읽는 글을 만들 때 항상 먼저 적용한다. "문서 써줘", "정리해줘", "README 만들어줘", "보고서 작성", "위키에 올릴 글", "/daljin-doc:write" 같은 요청에 사용.
 ---
 
 # 문서 작성 원칙
@@ -75,7 +75,7 @@ description: 사람이 읽을 문서를 새로 쓰거나 고쳐 쓸 때 따르�
 | PDF, Word, PowerPoint, Excel 파일 | `markitdown` MCP의 `convert_to_markdown` |
 | 웹 페이지 | WebFetch |
 | Confluence, Jira | mcp-atlassian |
-| 개인 지식베이스 | `kb-tools:search` 스킬 |
+| 개인 지식베이스 | `daljin-kb:search` 스킬 |
 
 ### 2.4 본문을 쓰고 줄인다
 
@@ -89,7 +89,7 @@ description: 사람이 읽을 문서를 새로 쓰거나 고쳐 쓸 때 따르�
 python3 "${CLAUDE_PLUGIN_ROOT}/skills/review/scripts/lint.py" <파일 경로>
 ```
 
-스크립트가 잡지 못하는 두괄식, 장황함, 참조 내용 누락은 1장 원칙을 기준으로 직접 확인한다. 전체 점검 절차는 `/document:review` 스킬이 맡는다.
+스크립트가 잡지 못하는 두괄식, 장황함, 참조 내용 누락은 1장 원칙을 기준으로 직접 확인한다. 전체 점검 절차는 `/daljin-doc:review` 스킬이 맡는다.
 
 ## 3. 고쳐 쓰기 예시
 
