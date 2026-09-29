@@ -43,8 +43,7 @@ LIST_ITEM = re.compile(r"^\s*([-*+]|\d+\.)\s")
 TABLE_ROW = re.compile(r"^\s*\|")
 FENCE = re.compile(r"^\s*(```|~~~)")
 
-LONG_DOC_LINES = 80
-LONG_DOC_SECTIONS = 4
+LONG_DOC_CHARS = 500
 
 
 def strip_inline(line):
@@ -154,13 +153,13 @@ def lint(text):
         if REFER.search(clean):
             add(no, "참조", "참조만 안내하지 말고 내용을 직접 가져와 쓴다", clean)
 
-    sections = [h for h in headings if h[1] == 2]
-    content_lines = sum(1 for _, _, k in body if k != "blank")
-    is_long = len(sections) >= LONG_DOC_SECTIONS or content_lines > LONG_DOC_LINES
+    # 글자 수는 공백을 포함해 세고, 코드 블록과 머리말은 세지 않는다
+    chars = sum(len(line.strip()) for _, line, k in body if k not in ("blank", "code"))
+    is_long = chars >= LONG_DOC_CHARS
     if is_long:
         has_toc = any(is_toc(t) for _, _, t in headings)
         if not has_toc:
-            add(1, "목차", f"긴 글(절 {len(sections)}개, 본문 {content_lines}줄)인데 목차가 없다")
+            add(1, "목차", f"긴 글({chars}자)인데 목차가 없다")
         for no, level, title in headings:
             if level >= 2 and not is_toc(title) and not NUMBERED.match(title):
                 add(no, "목차", "제목에 1, 1.1 같은 번호가 없다", title)
