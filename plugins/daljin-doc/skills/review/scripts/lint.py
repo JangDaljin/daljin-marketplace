@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """문서 작성 원칙 중 기계로 판별할 수 있는 항목을 점검한다.
 
-사용법: lint.py <파일>... (파일 대신 - 를 주면 표준 입력을 읽는다)
+사용법: lint.py [--long-form] <파일>... (파일 대신 - 를 주면 표준 입력을 읽는다)
+--long-form 을 주면 길게 풀어 쓰는 글로 보고 한 줄에 한 문장 검사를 건너뛴다.
 위반이 하나라도 있으면 종료 코드 1을 돌려준다.
 """
 import re
@@ -22,25 +23,30 @@ SYMBOL = re.compile(
     r"|->|=>|<-"
 )
 
-# 영어 소문자 단어 바로 뒤에 한글이 붙은 경우: "call한다", "deploy하면"
-MIXED_ATTACHED = re.compile(r"(?<![A-Za-z0-9_.-])[a-z][a-z]+(?=[가-힣])")
-# 한글 문장 안에 따로 떨어진 영어 소문자 단어
-MIXED_STANDALONE = re.compile(r"(?<![\w./:@#-])[a-z]{3,}(?![\w./:@-])")
+# 영어 단어에 "하다", "되다"를 붙여 동사로 쓴 경우: "call해요", "deploy돼요"
+MIXED_VERB = re.compile(r"(?<![A-Za-z0-9_.-])[A-Za-z]+(?=(하|해|했|합|함|되|돼|됐|됩|됨)[가-힣]*)")
+
+# "~한다", "~이다" 같은 딱딱한 끝맺음. "~합니다", "~습니다"는 제외한다.
+PLAIN_ENDING = re.compile(r"(?<=[가-힣])(?<![니습])다(?=[.!?]?\s*$)")
+
+# 한글 뒤에 오는 마침표, 물음표, 느낌표를 문장 끝으로 본다
+SENTENCE_END = re.compile(r"(?<=[가-힣])[.?!](?=\s|$)")
 
 REFER = re.compile(
-    r"(참조|참고)\s*(하세요|하십시오|해\s*주세요|하면\s*된다|하시면|바랍니다|할\s*것|한다)"
+    r"(참조|참고)\s*(하세요|하십시오|해\s*주세요|하면\s*돼요|하면\s*된다|하시면|바랍니다|한다)"
     r"|자세한\s*(내용|사항)은"
 )
 
-INLINE_CODE = re.compile(r"`[^`\n]*`")
+INLINE_CODE = re.compile(r"`[^`\n]+`")
 LINK_TARGET = re.compile(r"\]\([^)]*\)")
 URL = re.compile(r"https?://\S+")
 HTML_COMMENT = re.compile(r"<!--.*?-->")
 
 HEADING = re.compile(r"^(#{1,6})\s+(.*)$")
 NUMBERED = re.compile(r"^\d+(\.\d+)*\.?\s")
-LIST_ITEM = re.compile(r"^\s*([-*+]|\d+\.)\s")
+LIST_ITEM = re.compile(r"^\s*([-*+]|\d+\.)\s+")
 TABLE_ROW = re.compile(r"^\s*\|")
+TABLE_SEPARATOR = re.compile(r"^\s*\|?\s*:?-{3,}")
 FENCE = re.compile(r"^\s*(```|~~~)")
 
 LONG_DOC_CHARS = 500
@@ -71,7 +77,20 @@ def kind(line):
     return "prose"
 
 
-def lint(text):
+def text_units(line, k):
+    """끝맺음과 문장 수를 검사할 글 조각을 돌려준다."""
+    if k == "heading":
+        return [HEADING.match(line).group(2)]
+    if k == "list":
+        return [LIST_ITEM.sub("", line, count=1)]
+    if k == "table":
+        if TABLE_SEPARATOR.match(line):
+            return []
+        return [c for c in line.strip().strip("|").split("|")]
+    return [line]
+
+
+def lint(text, long_form=False):
     issues = []
 
     def add(no, cat, msg, excerpt=""):
@@ -105,7 +124,7 @@ def lint(text):
         if k == "blank":
             blank_run += 1
             if blank_run == 2:
-                add(no, "빈 줄", "빈 줄이 두 줄 이상 겹쳐 있다")
+                add(no, "빈 줄", "빈 줄이 두 줄 이상 겹쳐 있어요")
             prev_kind = k
             continue
         blank_run = 0
@@ -114,67 +133,70 @@ def lint(text):
             level, title = HEADING.match(line).groups()
             headings.append((no, len(level), title.strip()))
             if prev_kind != "blank" and idx > 0:
-                add(no, "빈 줄", "제목 앞에 빈 줄이 없다", line)
+                add(no, "빈 줄", "제목 앞에 빈 줄이 없어요", line)
             nxt = body[idx + 1] if idx + 1 < len(body) else None
             if nxt and nxt[2] != "blank":
-                add(no, "빈 줄", "제목 뒤에 빈 줄이 없다", line)
+                add(no, "빈 줄", "제목 뒤에 빈 줄이 없어요", line)
         elif k in ("list", "table", "code") and prev_kind == "prose":
-            add(no, "빈 줄", "문단과 목록, 표, 코드 사이에 빈 줄이 없다", line)
+            add(no, "빈 줄", "문단과 목록, 표, 코드 사이에 빈 줄이 없어요", line)
         elif k == "prose" and prev_kind in ("list", "table"):
-            add(no, "빈 줄", "목록이나 표 뒤에 빈 줄 없이 문단이 이어진다", line)
-        elif k == "prose" and prev_kind == "prose":
-            prev_line = body[idx - 1][1].rstrip()
-            if re.search(r"[다요]\.$|[.?!]$", prev_line):
-                add(no, "빈 줄", "앞 줄이 문장으로 끝났는데 빈 줄 없이 이어진다. 문단을 나누려면 한 줄 띄운다", line)
+            add(no, "빈 줄", "목록이나 표 뒤에 빈 줄 없이 문단이 이어져요", line)
         prev_kind = k
 
         if k == "code":
             continue
+
+        for m in INLINE_CODE.finditer(HTML_COMMENT.sub("", line)):
+            add(no, "코드 표기", "백틱으로 감싼 코드 표기를 쓰지 않아요. 그냥 글자로 쓰고, 입력할 명령은 코드 블록으로 보여 줘요", m.group())
+
         clean = strip_inline(line)
 
         for m in BOLD.finditer(clean):
-            add(no, "강조", "굵게 강조를 쓰지 않는다", m.group())
-        no_bold = BOLD.sub("", clean)
-        for m in ITALIC.finditer(no_bold):
-            add(no, "강조", "기울임 강조를 쓰지 않는다", m.group())
+            add(no, "강조", "굵게 강조를 쓰지 않아요", m.group())
+        for m in ITALIC.finditer(BOLD.sub("", clean)):
+            add(no, "강조", "기울임 강조를 쓰지 않아요", m.group())
 
         for m in SYMBOL.finditer(clean):
-            add(no, "기호", f"특수 기호 '{m.group()}'를 말로 풀어 쓴다", clean)
+            add(no, "기호", f"특수 기호 '{m.group()}'는 말로 풀어 써요", clean)
 
-        if HANGUL.search(clean):
-            attached = set()
-            for m in MIXED_ATTACHED.finditer(clean):
-                attached.add(m.start())
-                add(no, "혼용", f"영어 '{m.group()}'에 한글이 붙어 있다. 한국어로 바꾼다", clean)
-            for m in MIXED_STANDALONE.finditer(clean):
-                if m.start() not in attached:
-                    add(no, "혼용", f"영어 '{m.group()}'를 대신할 한국어가 있는지 확인한다", clean)
+        for m in MIXED_VERB.finditer(clean):
+            add(no, "혼용", f"영어 '{m.group()}'에 '하다'나 '되다'를 붙이지 않고 한국어 동사로 써요", clean)
 
         if REFER.search(clean):
-            add(no, "참조", "참조만 안내하지 말고 내용을 직접 가져와 쓴다", clean)
+            add(no, "참조", "참조만 안내하지 말고 필요한 부분을 직접 옮겨 써요", clean)
 
-    # 글자 수는 공백을 포함해 세고, 코드 블록과 머리말은 세지 않는다
+        if k in ("indent",):
+            continue
+        for unit in text_units(clean, k):
+            unit = unit.strip()
+            if not HANGUL.search(unit):
+                continue
+            if PLAIN_ENDING.search(unit):
+                add(no, "말투", "'~한다', '~이다'로 끝내지 않고 '~해요', '~예요'처럼 부드럽게 끝내요", unit)
+            if not long_form and len(SENTENCE_END.findall(unit)) >= 2:
+                add(no, "한 줄", "한 줄에 문장이 여러 개예요. 한 줄에 하나씩 나눠 써요", unit)
+
     chars = sum(len(line.strip()) for _, line, k in body if k not in ("blank", "code"))
-    is_long = chars >= LONG_DOC_CHARS
-    if is_long:
-        has_toc = any(is_toc(t) for _, _, t in headings)
-        if not has_toc:
-            add(1, "목차", f"긴 글({chars}자)인데 목차가 없다")
+    if chars >= LONG_DOC_CHARS:
+        if not any(is_toc(t) for _, _, t in headings):
+            add(1, "목차", f"긴 글({chars}자)인데 목차가 없어요")
         for no, level, title in headings:
             if level >= 2 and not is_toc(title) and not NUMBERED.match(title):
-                add(no, "목차", "제목에 1, 1.1 같은 번호가 없다", title)
+                add(no, "목차", "제목에 1, 1.1 같은 번호가 없어요", title)
 
     return sorted(issues)
 
 
 def main(argv):
-    if not argv:
+    long_form = "--long-form" in argv
+    paths = [a for a in argv if a != "--long-form"]
+    if not paths:
         print(__doc__.strip(), file=sys.stderr)
         return 2
     total = 0
-    for path in argv:
+    for path in paths:
         text = sys.stdin.read() if path == "-" else open(path, encoding="utf-8").read()
-        for no, cat, msg, excerpt in lint(text):
+        for no, cat, msg, excerpt in lint(text, long_form):
             suffix = f" | {excerpt}" if excerpt else ""
             print(f"{path}:{no}: [{cat}] {msg}{suffix}")
             total += 1

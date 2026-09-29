@@ -2,7 +2,7 @@
   "name": "daljin-doc",
   "displayName": "Daljin Doc",
   "description": "사람이 읽기 좋은 한국어 문서를 쓰고 점검하는 스킬 모음",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Wonjin Jang"
   },
