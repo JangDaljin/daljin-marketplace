@@ -1,18 +1,16 @@
 # daljin-marketplace
 
-달진 개인 전용 Claude Code 플러그인 마켓플레이스다.
+달진 전용 Claude Code 플러그인을 모아 둔 저장소다. 지금은 한국어 문서를 쓰고 점검하는 `daljin-doc` 플러그인 하나가 들어 있다.
 
 ## 목차
 
 1. 설치
-2. 플러그인
-3. `daljin-doc` 플러그인
+2. 구성
+3. 점검 스크립트 직접 실행
 
 ## 1. 설치
 
-`daljin-doc` 플러그인은 두 플러그인에 의존한다. 하나는 k-skill 마켓플레이스의 `k-skill`이고, 다른 하나는 daljin-librarian 마켓플레이스의 `daljin-kb`다. `daljin-kb`는 참조 자료를 개인 지식베이스에서 찾을 때 쓴다. 두 마켓플레이스를 먼저 등록한 뒤 이 마켓플레이스를 등록하고 설치한다. `daljin-doc`를 설치하면 두 플러그인도 함께 설치된다.
-
-daljin-librarian은 비공개 저장소라 이 기기의 `git` 인증 정보로 받는다. `ssh-agent`에 올린 GitHub SSH 키가 있거나, `gh auth login` 후 `gh auth setup-git`을 실행해 두어야 한다. 인증에 실패하면 `daljin-kb`가 설치되지 않고, 그러면 `daljin-doc` 플러그인도 로드되지 않는다.
+아래 명령 네 줄을 차례로 실행하면 설치가 끝난다.
 
 ```bash
 claude plugin marketplace add NomaDamas/k-skill
@@ -21,28 +19,29 @@ claude plugin marketplace add JangDaljin/daljin-marketplace
 claude plugin install daljin-doc@daljin-marketplace
 ```
 
-## 2. 플러그인
+`daljin-doc`을 설치하면 `k-skill`과 `daljin-kb`도 함께 설치된다. `daljin-doc`이 두 플러그인을 가져다 쓰기 때문이다. `k-skill`로는 맞춤법과 문체를 고치고, `daljin-kb`로는 개인 지식베이스에서 자료를 찾는다. 앞의 두 줄은 두 플러그인이 들어 있는 저장소를 등록하는 명령이다.
 
-| 플러그인 | 내용 |
-| --- | --- |
-| `daljin-doc` | 문서 작성 원칙, 문서 점검, 참조 자료를 가져오는 MCP |
+daljin-librarian은 비공개 저장소라서 GitHub 로그인 정보가 저장된 컴퓨터에서만 받을 수 있다. 로그인 정보는 다음 두 방법 중 하나로 저장한다.
 
-## 3. `daljin-doc` 플러그인
+1. GitHub에 SSH 키를 등록하고, 그 키를 `ssh-agent`에 올려 둔다.
+2. `gh auth login`을 실행한 다음 `gh auth setup-git`을 실행한다.
 
-사람이 읽기 좋은 한국어 문서를 쓰고 점검한다.
+로그인 정보가 없으면 `daljin-kb`를 받지 못하고, 그러면 `daljin-doc`도 쓸 수 없다.
 
-| 구성 | 이름 | 하는 일 |
+## 2. 구성
+
+| 종류 | 이름 | 하는 일 |
 | --- | --- | --- |
-| 스킬 | `/daljin-doc:write` | 문서를 쓸 때 따를 작성 원칙과 작성 순서 |
-| 스킬 | `/daljin-doc:review` | 쓴 문서를 점검 스크립트와 원칙으로 확인하고 고침 |
-| MCP | `context7` | 라이브러리와 프레임워크의 최신 공식 문서를 가져옴 |
-| MCP | `markitdown` | PDF, Word, PowerPoint, Excel 파일을 마크다운으로 바꿔 읽음 |
+| 스킬 | `/daljin-doc:write` | 문서를 쓸 때 지킬 원칙과 쓰는 순서를 알려 준다 |
+| 스킬 | `/daljin-doc:review` | 이미 쓴 문서를 점검하고 고친다 |
+| MCP | `context7` | 라이브러리와 프레임워크의 최신 공식 문서를 가져온다 |
+| MCP | `markitdown` | PDF, Word, PowerPoint, Excel 파일을 읽을 수 있게 마크다운으로 바꾼다 |
 
-`markitdown`은 `uvx`로 실행하므로 `uv`가 설치되어 있어야 한다. `context7`은 키 없이도 동작하고, 호출 한도를 늘리려면 환경 변수 `CONTEXT7_API_KEY`를 설정한다.
+`markitdown`을 쓰려면 `uv`가 설치되어 있어야 한다. `context7`은 키 없이도 쓸 수 있고, 호출 횟수 제한을 늘리고 싶을 때만 환경 변수 `CONTEXT7_API_KEY`에 키를 넣는다.
 
-맞춤법과 문체 교정은 k-skill 플러그인의 `korean-spell-check`와 `korean-humanizer` 스킬로 한다. k-skill은 의존성으로 함께 설치되며, 설치되지 않으면 `daljin-doc` 플러그인도 로드되지 않는다.
+## 3. 점검 스크립트 직접 실행
 
-점검 스크립트는 따로 실행할 수도 있다.
+`/daljin-doc:review`가 쓰는 점검 스크립트는 터미널에서 직접 실행할 수도 있다.
 
 ```bash
 python3 plugins/daljin-doc/skills/review/scripts/lint.py <파일 경로>
