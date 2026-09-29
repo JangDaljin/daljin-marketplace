@@ -5,8 +5,12 @@
 --long-form 을 주면 길게 풀어 쓰는 글로 보고 한 줄에 한 문장 검사를 건너뛴다.
 위반이 하나라도 있으면 종료 코드 1을 돌려준다.
 """
+import os
 import re
 import sys
+
+# 에이전트가 읽는 지시문. 사람이 읽는 문서의 작성 원칙을 적용하지 않는다.
+AGENT_FILES = {"SKILL.md", "CLAUDE.md", "AGENTS.md"}
 
 HANGUL = re.compile(r"[가-힣]")
 
@@ -194,6 +198,9 @@ def main(argv):
         return 2
     total = 0
     for path in paths:
+        if os.path.basename(path) in AGENT_FILES:
+            print(f"{path}: 에이전트 지시문이라 점검하지 않는다", file=sys.stderr)
+            continue
         text = sys.stdin.read() if path == "-" else open(path, encoding="utf-8").read()
         for no, cat, msg, excerpt in lint(text, long_form):
             suffix = f" | {excerpt}" if excerpt else ""
