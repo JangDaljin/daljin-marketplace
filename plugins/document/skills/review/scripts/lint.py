@@ -23,7 +23,7 @@ SYMBOL = re.compile(
 )
 
 # 영어 소문자 단어 바로 뒤에 한글이 붙은 경우: "call한다", "deploy하면"
-MIXED_ATTACHED = re.compile(r"(?<![A-Za-z0-9_-])[a-z][a-z]+(?=[가-힣])")
+MIXED_ATTACHED = re.compile(r"(?<![A-Za-z0-9_.-])[a-z][a-z]+(?=[가-힣])")
 # 한글 문장 안에 따로 떨어진 영어 소문자 단어
 MIXED_STANDALONE = re.compile(r"(?<![\w./:@#-])[a-z]{3,}(?![\w./:@-])")
 
