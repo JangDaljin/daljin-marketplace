@@ -1,6 +1,6 @@
 {
   "name": "daljin-marketplace",
-  "description": "달진 개인 전용 Claude Code 플러그인 마켓플레이스",
+  "description": "달진 전용 Claude Code 플러그인 마켓플레이스. 플러그인은 직업 페르소나, 스킬은 그 직업의 능력",
   "owner": {
     "name": "Wonjin Jang"
   },
@@ -10,9 +10,12 @@
   ],
   "plugins": [
     {
-      "name": "daljin-doc",
-      "source": "./plugins/daljin-doc",
-      "description": "문서 작성 원칙과 문서 점검 스킬, 참조 자료를 가져오는 MCP 묶음"
+      "name": "daljin-writer",
+      "source": "./plugins/daljin-writer",
+      "description": "글 쓰는 직업 페르소나. 문서 작성 원칙과 문서 점검 스킬"
     }
-  ]
+  ],
+  "renames": {
+    "daljin-doc": "daljin-writer"
+  }
 }

@@ -1,6 +1,6 @@
 ---
 name: write
-description: 사람이 읽을 문서를 새로 쓰거나 고쳐 쓸 때 따르는 작성 원칙. README, 설계 문서, 보고서, 회의록, 위키, 지식베이스 문서, PR 설명, Confluence나 Notion 페이지처럼 사람이 읽는 글을 만들 때 항상 먼저 적용한다. "문서 써줘", "정리해줘", "README 만들어줘", "보고서 작성", "위키에 올릴 글", "/daljin-doc:write" 같은 요청에 사용.
+description: 사람이 읽을 문서를 새로 쓰거나 고쳐 쓸 때 따르는 작성 원칙. README, 설계 문서, 보고서, 회의록, 위키, 지식베이스 문서, PR 설명, Confluence나 Notion 페이지처럼 사람이 읽는 글을 만들 때 항상 먼저 적용한다. "문서 써줘", "정리해줘", "README 만들어줘", "보고서 작성", "위키에 올릴 글", "/daljin-writer:write" 같은 요청에 사용.
 ---
 
 # 문서 작성 원칙
@@ -26,7 +26,7 @@ description: 사람이 읽을 문서를 새로 쓰거나 고쳐 쓸 때 따르�
 6. **참조는 직접 옮긴다.** "자세한 것은 어디를 보세요"로 끝내지 않고 필요한 부분을 가져와 쓴다. 출처만 남기고 설명을 비우지 않는다.
 7. **특수 기호 금지.** 화살표, 줄표, 별표 장식, 체크 표시, 이모지, 가운뎃점, 꺾쇠 괄호를 쓰지 않고 말로 푼다. 제목, 목록, 표 같은 마크다운 구조 문법은 쓴다.
 8. **백틱 금지.** 인라인 코드 표기와 코드 블록 펜스를 모두 쓰지 않는다. 제품, 파일, 명령 이름은 그냥 글자로 쓴다. 독자가 입력할 명령은 네 칸 들여쓰기로 보여 준다.
-9. **한국어와 영어를 섞지 않는다.** 대신할 한국어가 없는 용어만 영어로 쓴다. 영어 동사에 "하다", "되다"를 붙이지 않는다. 영어 이름 뒤 조사는 읽는 소리에 맞춘다(`daljin-doc을`).
+9. **한국어와 영어를 섞지 않는다.** 대신할 한국어가 없는 용어만 영어로 쓴다. 영어 동사에 "하다", "되다"를 붙이지 않는다. 영어 이름 뒤 조사는 읽는 소리에 맞춘다(`daljin-writer을`).
 10. **짧고 명료하게.** 분량을 채우려고 늘리지 않는다. 되풀이와 끝맺음 요약을 쓰지 않는다. 지워도 뜻이 같은 문장은 지운다.
 11. **강조 표시 금지.** 굵게와 기울임을 쓰지 않는다. 중요한 것은 문장 앞이나 별도 줄에 둔다.
 12. **문단을 분명히 끝낸다.** 한 문단에 생각 하나. "등등", "여러 가지가 있어요" 같은 흐린 마무리를 쓰지 않는다.
@@ -54,7 +54,7 @@ description: 사람이 읽을 문서를 새로 쓰거나 고쳐 쓸 때 따르�
    python3 "${CLAUDE_PLUGIN_ROOT}/skills/review/scripts/lint.py" [--long-form] <파일 경로>
    ```
 
-   스크립트는 겉모양만 본다. "위반 없음"은 좋은 글이라는 뜻이 아니다. 1번 원칙(필요한 것만)과 두괄식은 직접 확인한다. 전체 점검 절차는 `/daljin-doc:review`를 따른다.
+   스크립트는 겉모양만 본다. "위반 없음"은 좋은 글이라는 뜻이 아니다. 1번 원칙(필요한 것만)과 두괄식은 직접 확인한다. 전체 점검 절차는 `/daljin-writer:review`를 따른다.
 
 ## 3. 예시
 
@@ -66,7 +66,7 @@ README를 쓸 때, 독자가 본인뿐이고 할 일이 설치라면 결과물�
     claude plugin marketplace add NomaDamas/k-skill
     claude plugin marketplace add JangDaljin/daljin-librarian
     claude plugin marketplace add JangDaljin/daljin-marketplace
-    claude plugin install daljin-doc@daljin-marketplace
+    claude plugin install daljin-writer@daljin-marketplace
 ```
 
 사람에게 변경을 알리는 글이라면 다음처럼 고친다.
