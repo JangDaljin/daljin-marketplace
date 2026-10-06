@@ -41,7 +41,6 @@ description: 사람이 읽을 문서를 새로 쓰거나 고쳐 쓸 때 따르�
 
    | 자료 | 도구 |
    | --- | --- |
-   | 라이브러리, 프레임워크 공식 문서 | `context7` MCP |
    | PDF, Word, PowerPoint, Excel | `markitdown` MCP의 `convert_to_markdown` |
    | 웹 페이지 | WebFetch |
    | Confluence, Jira | mcp-atlassian |
