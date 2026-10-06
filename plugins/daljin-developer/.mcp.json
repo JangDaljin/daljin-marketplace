@@ -49,6 +49,10 @@
     "notion": {
       "type": "http",
       "url": "https://mcp.notion.com/mcp"
+    },
+    "atlassian": {
+      "command": "uvx",
+      "args": ["mcp-atlassian"]
     }
   }
 }
