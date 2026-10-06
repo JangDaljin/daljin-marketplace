@@ -13,6 +13,11 @@
       "name": "daljin-writer",
       "source": "./plugins/daljin-writer",
       "description": "글 쓰는 직업 페르소나. 문서 작성 원칙과 문서 점검 스킬"
+    },
+    {
+      "name": "daljin-developer",
+      "source": "./plugins/daljin-developer",
+      "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 MCP와 언어별 개발 하네스"
     }
   ],
   "renames": {
