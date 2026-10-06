@@ -2,7 +2,7 @@
   "name": "daljin-developer",
   "displayName": "Daljin Developer",
   "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 도구와 언어별 개발 하네스",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": {
     "name": "Wonjin Jang"
   },

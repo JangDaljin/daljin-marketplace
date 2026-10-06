@@ -41,6 +41,10 @@
       "headers": {
         "Authorization": "Bearer ${HF_TOKEN:-}"
       }
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
     }
   }
 }
