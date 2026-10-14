@@ -50,6 +50,7 @@ const config = defineConfig(
             // TypeScript
             "@typescript-eslint/consistent-type-definitions": ["error", "type"],
             "@typescript-eslint/no-explicit-any": "error",
+            "@typescript-eslint/consistent-type-assertions": ["error", { assertionStyle: "as", objectLiteralTypeAssertions: "never" }],
             "@typescript-eslint/no-floating-promises": "error",
             "@typescript-eslint/no-misused-promises": "error",
             "@typescript-eslint/explicit-member-accessibility": ["error", { accessibility: "explicit", overrides: { constructors: "no-public" } }],
@@ -82,6 +83,28 @@ const config = defineConfig(
                     message: ".then() 대신 async/await 를 쓴다.",
                 },
             ],
+        },
+    },
+    {
+        files: ["src/**/*.controller.ts"],
+        rules: {
+            "no-restricted-imports": ["error", {
+                patterns: [{
+                    regex: "(\\.repository|prisma\\.service|/generated/prisma/.*)\\.js$",
+                    message: "Controller 는 service 만 부른다. repository, PrismaService, Prisma 모델을 직접 가져오지 않는다.",
+                }],
+            }],
+        },
+    },
+    {
+        files: ["src/**/*.service.ts"],
+        rules: {
+            "no-restricted-imports": ["error", {
+                patterns: [{
+                    regex: "prisma\\.service\\.js$",
+                    message: "service 는 PrismaService 대신 repository 를 주입받는다.",
+                }],
+            }],
         },
     },
     {
