@@ -1,8 +1,8 @@
 {
-  "name": "daljin-writer",
-  "displayName": "Daljin Writer",
+  "name": "writer",
+  "displayName": "Writer",
   "description": "글 쓰는 직업 페르소나. 사람이 읽기 좋은 한국어 문서를 쓰고 점검한다",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": {
     "name": "Wonjin Jang"
   },
@@ -18,8 +18,8 @@
       "marketplace": "k-skill"
     },
     {
-      "name": "daljin-kb",
-      "marketplace": "daljin-librarian"
+      "name": "librarian",
+      "marketplace": "daljin-marketplace"
     }
   ]
 }

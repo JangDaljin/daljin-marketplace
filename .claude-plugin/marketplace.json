@@ -5,22 +5,28 @@
     "name": "Wonjin Jang"
   },
   "allowCrossMarketplaceDependenciesOn": [
-    "k-skill",
-    "daljin-librarian"
+    "k-skill"
   ],
   "plugins": [
     {
-      "name": "daljin-writer",
-      "source": "./plugins/daljin-writer",
+      "name": "writer",
+      "source": "./plugins/writer",
       "description": "글 쓰는 직업 페르소나. 문서 작성 원칙과 문서 점검 스킬"
     },
     {
-      "name": "daljin-developer",
-      "source": "./plugins/daljin-developer",
+      "name": "developer",
+      "source": "./plugins/developer",
       "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 MCP와 언어별 개발 하네스"
+    },
+    {
+      "name": "librarian",
+      "source": "./plugins/librarian",
+      "description": "지식베이스를 관리하는 사서 페르소나. 개인 지식베이스를 찾고 정리하는 스킬과 세션 시작 규칙 주입 훅"
     }
   ],
   "renames": {
-    "daljin-doc": "daljin-writer"
+    "daljin-doc": "writer",
+    "daljin-writer": "writer",
+    "daljin-developer": "developer"
   }
 }

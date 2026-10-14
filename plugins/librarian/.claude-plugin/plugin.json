@@ -1,0 +1,14 @@
+{
+  "name": "librarian",
+  "displayName": "Librarian",
+  "description": "지식베이스를 관리하는 사서 페르소나. 개인 지식베이스(daljin-knowledge-base)를 찾고 정리한다",
+  "version": "2.0.0",
+  "author": {
+    "name": "Wonjin Jang"
+  },
+  "keywords": [
+    "knowledge-base",
+    "search",
+    "librarian"
+  ]
+}
