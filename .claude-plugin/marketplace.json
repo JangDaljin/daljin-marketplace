@@ -22,6 +22,11 @@
       "name": "librarian",
       "source": "./plugins/librarian",
       "description": "지식베이스를 관리하는 사서 페르소나. 개인 지식베이스를 찾고 정리하는 스킬과 세션 시작 규칙 주입 훅"
+    },
+    {
+      "name": "designer",
+      "source": "./plugins/designer",
+      "description": "디자인하는 직업 페르소나. 팔레트와 레이아웃을 아티팩트로 승인받고 Figma 에 디자인 모음집으로 올리는 스킬과 Figma MCP"
     }
   ],
   "renames": {
