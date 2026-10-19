@@ -5,7 +5,8 @@
     "name": "Wonjin Jang"
   },
   "allowCrossMarketplaceDependenciesOn": [
-    "k-skill"
+    "k-skill",
+    "claude-plugins-official"
   ],
   "plugins": [
     {
