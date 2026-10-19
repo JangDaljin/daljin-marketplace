@@ -95,15 +95,15 @@ Figma 파일은 디자인 모음집이다. 시안이나 실험은 올리지 않�
 디자인 안목과 검토 지식은 외부 스킬에서 빌려 쓴다. 이 스킬과 단계별 스킬이 유일한 진행자이고, 외부 스킬은 단계마다 불러 쓰는 자문이다.
 
 - 외부 스킬의 판단 지식(색, 서체, 구조, 모션, 접근성 규칙)만 가져온다. 외부 스킬의 흐름 지시(테마를 고르라, 토큰을 생성하라, 바로 코드를 쓰라, 여러 버전을 스위처로 만들라)는 따르지 않는다. 결과물은 항상 2절의 작업 폴더와 3절의 토큰 형식이다.
-- 외부 스킬이 설치되어 있지 않으면 그 단계를 건너뛰고 사용자에게 설치 명령을 알린다. 설치를 대신 하지 않는다.
+- 외부 스킬은 모두 designer 의 의존 플러그인이라 designer 와 함께 설치된다. 그래도 없으면(의존성 설치 실패) 그 단계를 건너뛰고 사용자에게 `claude plugin install <이름>@daljin-marketplace` 를 알린다. 설치를 대신 하지 않는다.
 - 외부 스킬끼리 조언이 다르면 접근성 기준(5절)을 먼저 지키고, 그다음은 이 브리프에 더 구체적인 쪽을 고른 뒤 승인 요청에 그 선택을 적는다.
 
 | 스킬 | 설치 | 쓰는 단계 | 쓰지 않는 것 |
 | --- | --- | --- | --- |
-| `frontend-design` | designer 의존성(`claude-plugins-official`) | palette 설계 전, layout 아티팩트 전 | 없음 |
-| `ui-ux-pro-max` | designer 의존성(`ui-ux-pro-max-skill` 마켓플레이스) | palette 핵심 색(`--domain color`, `style`), layout 서체(`--domain typography`), 승인 전 점검(`--domain ux`) | 같이 설치되는 `design-system`, `brand`, `slides`, `banner-design`, `ui-styling`, `design` 스킬. 토큰은 우리 형식으로만 만든다 |
-| `hallmark` | 사용자 레벨 `npx skills add nutlope/hallmark -g -a claude-code` | palette 인터뷰에서 참고 자료가 있을 때 `study`, layout 의 랜딩·마케팅 화면 구조, 승인 전 `audit` | 기본 동사(페이지 생성)와 테마 선택. 21개 테마 중 고르지 않는다 |
-| emil `animate`, `break-ui`, `review-animations`, `mobile-native`, `apple-design` | 사용자 레벨 `npx skills add emilkowalski/skills -g -a claude-code -s animate,break-ui,review-animations,mobile-native,apple-design` | layout 모션, 컴포넌트 최악 데이터 상태, 승인 전 모션 검토, 모바일 구간 점검 | 나머지 emil 스킬(`write-swift`, `ask-sonner`, `pick-ui-library`, `animate-expo`, `prototype`)은 프론트엔드 페르소나 몫 |
+| `frontend-design:frontend-design` | 의존 플러그인 `frontend-design` | palette 설계 전, layout 아티팩트 전 | 없음 |
+| `ui-ux-pro-max:ui-ux-pro-max` | 의존 플러그인 `ui-ux-pro-max`. Python 3 필요 | palette 핵심 색(`--domain color`, `style`), layout 서체(`--domain typography`), 승인 전 점검(`--domain ux`) | 같이 설치되는 `design-system`, `brand`, `slides`, `banner-design`, `ui-styling`, `design` 스킬. 토큰은 우리 형식으로만 만든다 |
+| `hallmark:hallmark` | 의존 플러그인 `hallmark` | palette 인터뷰에서 참고 자료가 있을 때 `study`, layout 의 랜딩·마케팅 화면 구조, 승인 전 `audit` | 기본 동사(페이지 생성)와 테마 선택. 21개 테마 중 고르지 않는다 |
+| `emil-skills:animate`, `emil-skills:break-ui`, `emil-skills:review-animations`, `emil-skills:mobile-native`, `emil-skills:apple-design` | 의존 플러그인 `emil-skills`(15개가 함께 설치된다) | layout 모션, 컴포넌트 최악 데이터 상태, 승인 전 모션 검토, 모바일 구간 점검 | 나머지 emil 스킬(`write-swift`, `ask-sonner`, `pick-ui-library`, `animate-expo`, `prototype`)은 프론트엔드 페르소나 몫 |
 | `designer:ui-review` | designer 내장 | layout 승인 전 점검 | 없음 |
 
 ## 8. 디자이너가 하지 않는 일

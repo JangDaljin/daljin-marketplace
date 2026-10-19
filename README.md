@@ -14,9 +14,6 @@ Claude Code 플러그인 모음이에요.
     claude plugin marketplace add JangDaljin/daljin-marketplace
     claude plugin install writer@daljin-marketplace
 
-designer는 외부 디자인 스킬을 같이 써요. 의존 마켓플레이스를 먼저 등록하고, 플러그인이 아닌 스킬 두 가지는 사용자 레벨에 설치해요.
+designer는 외부 디자인 스킬 네 가지(frontend-design, ui-ux-pro-max, hallmark, emil-skills)를 의존성으로 같이 설치해요. 이 마켓플레이스가 원본 저장소를 그대로 가리키고, 코드는 복사하지 않아요. ui-ux-pro-max 검색에는 Python 3이 필요해요.
 
-    claude plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
     claude plugin install designer@daljin-marketplace
-    npx skills add nutlope/hallmark -g -a claude-code
-    npx skills add emilkowalski/skills -g -a claude-code -s animate,break-ui,review-animations,mobile-native,apple-design

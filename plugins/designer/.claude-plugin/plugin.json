@@ -2,7 +2,7 @@
   "name": "designer",
   "displayName": "Designer",
   "description": "디자인하는 직업 페르소나. 색 팔레트와 레이아웃을 아티팩트로 먼저 증명하고 승인받은 뒤 Figma에 정제된 디자인 모음집으로 올린다",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": {
     "name": "Wonjin Jang"
   },
@@ -17,11 +17,19 @@
   "dependencies": [
     {
       "name": "frontend-design",
-      "marketplace": "claude-plugins-official"
+      "marketplace": "daljin-marketplace"
     },
     {
       "name": "ui-ux-pro-max",
-      "marketplace": "ui-ux-pro-max-skill"
+      "marketplace": "daljin-marketplace"
+    },
+    {
+      "name": "hallmark",
+      "marketplace": "daljin-marketplace"
+    },
+    {
+      "name": "emil-skills",
+      "marketplace": "daljin-marketplace"
     }
   ]
 }

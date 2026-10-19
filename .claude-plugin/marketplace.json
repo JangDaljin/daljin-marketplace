@@ -5,9 +5,7 @@
     "name": "Wonjin Jang"
   },
   "allowCrossMarketplaceDependenciesOn": [
-    "k-skill",
-    "claude-plugins-official",
-    "ui-ux-pro-max-skill"
+    "k-skill"
   ],
   "plugins": [
     {
@@ -29,6 +27,47 @@
       "name": "designer",
       "source": "./plugins/designer",
       "description": "디자인하는 직업 페르소나. 팔레트와 레이아웃을 아티팩트로 승인받고 Figma 에 디자인 모음집으로 올리는 스킬과 Figma MCP"
+    },
+    {
+      "name": "frontend-design",
+      "description": "Anthropic 공식 frontend-design 스킬. designer 의 의존성으로만 쓴다. 원본은 anthropics/claude-code 의 plugins/frontend-design",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-code.git",
+        "path": "plugins/frontend-design"
+      }
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": "nextlevelbuilder 의 UI/UX 검색 데이터베이스(79 스타일, 192 팔레트, 74 서체 조합, 119 UX 지침). MIT. designer 의 의존성으로만 쓴다. Python 3 필요",
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+      }
+    },
+    {
+      "name": "hallmark",
+      "description": "nutlope 의 anti-AI-slop 디자인 스킬(study, audit, 랜딩 구조). MIT. designer 의 의존성으로만 쓴다. 매니페스트가 없어 이 항목이 매니페스트다",
+      "version": "1.1.0",
+      "author": {
+        "name": "nutlope"
+      },
+      "source": {
+        "source": "github",
+        "repo": "nutlope/hallmark"
+      }
+    },
+    {
+      "name": "emil-skills",
+      "description": "Emil Kowalski 의 디자인·모션 스킬 15개(animate, break-ui, review-animations, mobile-native, apple-design 등). MIT. designer 의 의존성으로만 쓴다. 매니페스트가 없어 이 항목이 매니페스트다",
+      "version": "2026.10.19",
+      "author": {
+        "name": "Emil Kowalski"
+      },
+      "source": {
+        "source": "github",
+        "repo": "emilkowalski/skills"
+      }
     }
   ],
   "renames": {
