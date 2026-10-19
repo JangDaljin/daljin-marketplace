@@ -6,7 +6,8 @@
   },
   "allowCrossMarketplaceDependenciesOn": [
     "k-skill",
-    "claude-plugins-official"
+    "claude-plugins-official",
+    "ui-ux-pro-max-skill"
   ],
   "plugins": [
     {

@@ -13,3 +13,10 @@ Claude Code 플러그인 모음이에요.
 
     claude plugin marketplace add JangDaljin/daljin-marketplace
     claude plugin install writer@daljin-marketplace
+
+designer는 외부 디자인 스킬을 같이 써요. 의존 마켓플레이스를 먼저 등록하고, 플러그인이 아닌 스킬 두 가지는 사용자 레벨에 설치해요.
+
+    claude plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
+    claude plugin install designer@daljin-marketplace
+    npx skills add nutlope/hallmark -g -a claude-code
+    npx skills add emilkowalski/skills -g -a claude-code -s animate,break-ui,review-animations,mobile-native,apple-design
