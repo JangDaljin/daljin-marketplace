@@ -1,6 +1,6 @@
 ---
 name: layout
-description: 승인된 팔레트 토큰으로 화면과 컴포넌트 레이아웃을 HTML 아티팩트로 만들어 사용자 승인을 받는 2단계 스킬. 간격·글자·모서리 토큰 정의, 모바일·태블릿·PC 세 구간 화면, 컴포넌트 상태별 표현, 토큰 외 색 사용 검사까지 한다. "레이아웃 잡아줘", "홈 화면 그려줘", "컴포넌트 상태 보여줘", "타이포 스케일", "/designer:layout" 요청 시 사용. 승인된 팔레트가 없으면 designer:palette 로 먼저 돌아간다.
+description: 승인된 팔레트 토큰으로 화면과 컴포넌트 레이아웃을 HTML 아티팩트로 만들어 사용자 승인을 받는 2단계 스킬. 간격·글자·모서리 토큰 정의, 모바일·태블릿·PC 세 구간 화면, 컴포넌트 상태별 표현, 토큰 외 색 사용 검사, 승인 전 Web Interface Guidelines 검토(designer:ui-review)까지 한다. "레이아웃 잡아줘", "홈 화면 그려줘", "컴포넌트 상태 보여줘", "타이포 스케일", "/designer:layout" 요청 시 사용. 승인된 팔레트가 없으면 designer:palette 로 먼저 돌아간다.
 ---
 
 # 레이아웃
@@ -73,6 +73,8 @@ python3 "${CLAUDE_PLUGIN_ROOT}/skills/layout/scripts/check-tokens.py" design/<�
 
 - 실패하면 토큰으로 바꾼다. 필요한 값이 토큰에 없으면 2절 토큰 추가로 돌아가고, 색이면 `designer:palette` 로 돌아간다.
 - 스크립트는 값만 본다. 정렬, 위계, 여백 리듬은 직접 확인한다.
+
+토큰 검사를 통과하면 `designer:ui-review` 스킬로 같은 파일을 검토한다. 접근성, 포커스 표시, reduced motion, 터치 타깃, 긴 글 처리, 다크 모드 같은 Web Interface Guidelines 규칙을 본다. 지적이 남아 있으면 고치고 다시 돌린다. 의도적 선택이라 고치지 않는 지적은 승인 요청에 이유를 적는다.
 
 ## 7. 수정과 승인
 
