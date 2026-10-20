@@ -30,7 +30,7 @@
     },
     {
       "name": "frontend-design",
-      "description": "Anthropic 공식 frontend-design 스킬. designer 의 의존성으로만 쓴다. 원본은 anthropics/claude-code 의 plugins/frontend-design",
+      "description": "Anthropic 공식 frontend-design 스킬(디자인 안목). designer 의 의존성으로만 쓴다. 원본은 anthropics/claude-code 의 plugins/frontend-design",
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/anthropics/claude-code.git",

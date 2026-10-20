@@ -14,7 +14,7 @@ Claude Code 플러그인 모음이에요.
     claude plugin marketplace add JangDaljin/daljin-marketplace
     claude plugin install writer@daljin-marketplace
 
-designer와 developer는 외부 디자인 스킬(frontend-design, ui-ux-pro-max, hallmark, emil-skills)을 의존성으로 같이 설치해요. 이 마켓플레이스가 원본 저장소를 그대로 가리키고, 코드는 복사하지 않아요. ui-ux-pro-max 검색에는 Python 3이 필요해요.
+designer는 외부 디자인 스킬(frontend-design, ui-ux-pro-max, hallmark, emil-skills)을, developer는 그중 구현에 쓰는 둘(emil-skills, ui-ux-pro-max)을 의존성으로 같이 설치해요. 이 마켓플레이스가 원본 저장소를 그대로 가리키고, 코드는 복사하지 않아요. ui-ux-pro-max 검색에는 Python 3이 필요해요.
 
     claude plugin install designer@daljin-marketplace
     claude plugin install developer@daljin-marketplace

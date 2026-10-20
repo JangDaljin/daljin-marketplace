@@ -2,7 +2,7 @@
   "name": "developer",
   "displayName": "Developer",
   "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 도구, 서버(backend, java, nestjs)와 프론트엔드(frontend, nextjs, handoff, ui-review) 하네스",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "author": {
     "name": "Wonjin Jang"
   },
@@ -19,10 +19,6 @@
     "figma"
   ],
   "dependencies": [
-    {
-      "name": "frontend-design",
-      "marketplace": "daljin-marketplace"
-    },
     {
       "name": "emil-skills",
       "marketplace": "daljin-marketplace"
