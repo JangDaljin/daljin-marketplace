@@ -23,6 +23,8 @@ description: 승인된 팔레트 토큰으로 화면과 컴포넌트 레이아�
 | `font.weight` | `regular`=400, `medium`=500, `bold`=700 | |
 | `font.lineheight` | `tight`=1.25, `normal`=1.5 | 제목은 tight, 본문은 normal |
 | `radius` | `sm`=6, `md`=12, `lg`=20, `full`=9999 | |
+| `motion.duration` | `fast`=120ms, `normal`=200ms, `slow`=320ms | 모션을 쓸 때만 추가 |
+| `motion.easing` | `enter`=cubic-bezier(0, 0, 0.2, 1), `exit`=cubic-bezier(0.4, 0, 1, 1), `move`=cubic-bezier(0.4, 0, 0.2, 1) | 들어올 때 enter, 나갈 때 exit |
 | `breakpoint` | `tablet`=768, `pc`=1280 | `designer:design` 4절 |
 
 - 글자체는 컨셉에 맞게 고른다. `ui-ux-pro-max` 로 서체 조합을 검색해(`"<제품 유형> <분위기>" --domain typography`) 출발점을 잡되, 결과에는 한글 서체가 없으므로 본문용 한글 서체는 따로 고른다. 한 가족이나 두 가족까지 쓰고, 둘이면 분명히 달라야 한다. 사용자가 서체에 신경 쓰지 않는다고 했을 때만 Pretendard 와 system-ui 대체를 기본값으로 둔다. 고른 서체와 이유는 토큰 추가와 함께 승인받는다.
@@ -54,7 +56,7 @@ description: 승인된 팔레트 토큰으로 화면과 컴포넌트 레이아�
 4. 그래프나 차트가 들어가면 `dataviz` 스킬을 읽고 그 규칙대로 그린다. 색은 의미 토큰에서 고른다.
 5. 모든 색, 간격, 글자 크기, 모서리는 토큰 CSS 변수만 쓴다. 변수 선언 블록은 `tokens.json` 에서 생성한다.
 6. 상태 변형(비어 있음, 로딩, 오류)이 있으면 같은 파일 아래쪽에 모바일 폭으로 추가한다.
-7. 모션은 상태 전환을 보여 줄 때만 넣는다. 넣을 때는 emil `animate` 스킬을 읽고 이징(들어올 때 ease-out, 나갈 때 ease-in), 길이, `transform` 과 `opacity` 만 쓰는 속성, 중단 가능 여부를 그 규칙대로 정한다. 섹션마다 등장 애니메이션을 넣지 않는다.
+7. 모션은 상태 전환을 보여 줄 때만 넣는다. 넣을 때는 emil `animate` 스킬을 읽고 이징(들어올 때 ease-out, 나갈 때 ease-in), 길이, `transform` 과 `opacity` 만 쓰는 속성, 중단 가능 여부를 그 규칙대로 정한다. 정한 값은 `motion.duration.*`, `motion.easing.*` 토큰으로 `tokens.json` 에 넣고, 어느 상태 전환에 어느 토큰을 쓰는지 아티팩트의 해당 요소 옆에 적는다. 개발자는 이 값만 보고 구현하므로 적지 않은 모션은 구현되지 않는다. 섹션마다 등장 애니메이션을 넣지 않는다.
 8. 모바일 구간은 emil `mobile-native` 스킬의 항목(safe area, 100vh, 입력창 확대, 탭 하이라이트, 끈적이는 hover)을 반영한다.
 
 ## 5. 컴포넌트 아티팩트
@@ -62,7 +64,7 @@ description: 승인된 팔레트 토큰으로 화면과 컴포넌트 레이아�
 화면에 두 번 이상 나오거나 상태가 있는 요소는 컴포넌트로 뽑아 `design/<컨셉>/component-<이름>.html` 에 따로 만든다.
 
 - 상태를 가로로 나란히 둔다: default, hover, pressed, disabled, 필요하면 selected, error.
-- 마지막에 "최악의 데이터" 변형을 둔다. emil `break-ui` 스킬의 목록대로 아주 긴 이름, 한 글자 이름, 끊기지 않는 이메일, 빈 값, 아주 큰 숫자, 이모지와 라틴 아닌 글자를 넣어 컴포넌트가 깨지지 않는지 보여 준다. 깨지면 토큰이 아니라 레이아웃(줄임, 줄바꿈, 최소 폭)을 고친다.
+- 마지막에 "최악의 데이터" 변형을 둔다. emil `break-ui` 스킬의 목록대로 아주 긴 이름, 한 글자 이름, 끊기지 않는 이메일, 빈 값, 아주 큰 숫자, 이모지와 라틴 아닌 글자를 넣어 컴포넌트가 깨지지 않는지 보여 준다. 깨지면 토큰이 아니라 레이아웃(줄임, 줄바꿈, 최소 폭)을 고친다. 이 변형은 개발자가 그대로 구현하고 테스트 데이터로 쓰는 명세이므로 Figma 에도 `State=WorstCase` variant 로 올린다.
 - 크기 변형(sm, md, lg)이 있으면 세로로 둔다.
 - 각 변형 아래에 variant 이름을 적는다. Figma variants 이름과 같게 한다(`State=Pressed`).
 - 폭에 따라 모양이 바뀌는 컴포넌트만 구간별로 그린다.

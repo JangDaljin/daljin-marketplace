@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: 디자이너가 Figma에 정돈한 디자인 모음집을 Figma MCP로 읽어 코드로 옮기는 절차. Figma Variables를 CSS 변수와 shadcn/ui 테마 변수로, Figma 컴포넌트를 shadcn/ui 컴포넌트와 기능 컴포넌트로, 화면 프레임을 라우트로 옮기고, 대응표를 design/<컨셉>/handoff.md에 기록하며, 구현 화면 스크린샷을 Figma 프레임과 대조한다. "Figma 보고 구현해줘", "디자인 반영", "토큰 옮겨줘", "피그마랑 비교", "/developer:handoff <Figma URL 또는 화면 이름>" 요청 시 사용.
+description: 디자이너의 결과물(Figma 디자인 모음집, 승인된 아티팩트와 tokens.json, HTML 시안)을 읽어 코드로 옮기는 절차. Figma Variables를 CSS 변수와 shadcn/ui 테마 변수로, Figma 컴포넌트를 shadcn/ui 컴포넌트와 기능 컴포넌트로, 화면 프레임을 라우트로 옮기고, 대응표를 design/<컨셉>/handoff.md에 기록하며, 구현 화면 스크린샷을 Figma 프레임과 대조한다. "Figma 보고 구현해줘", "디자인 반영", "토큰 옮겨줘", "피그마랑 비교", "/developer:handoff <Figma URL 또는 화면 이름>" 요청 시 사용.
 ---
 
 # Figma 핸드오프
@@ -9,9 +9,13 @@ description: 디자이너가 Figma에 정돈한 디자인 모음집을 Figma MCP
 
 ## 1. 원본 찾기
 
-- `design/<컨셉>/figma.md` 가 있으면 거기 적힌 파일 URL 과 노드 id 를 쓴다. `$ARGUMENTS` 에 Figma URL 이 있으면 그것을 쓴다. 둘 다 없으면 사용자에게 묻는다.
-- `design/<컨셉>/tokens.json` 이 있으면 Figma Variables 와 함께 읽어 서로 같은지 확인한다. 다르면 Figma 를 원본으로 보고 사용자에게 알린다.
-- `figma` MCP 가 인증되어 있지 않으면 인증 도구를 호출하고 사용자가 브라우저에서 승인하게 안내한다.
+`developer:frontend` 2절의 순서대로 원본을 정한다.
+
+- Figma: `design/<컨셉>/figma.md` 가 있으면 거기 적힌 파일 URL 과 노드 id 를 쓴다. `$ARGUMENTS` 에 Figma URL 이 있으면 그것을 쓴다. `figma` MCP 가 인증되어 있지 않으면 인증 도구를 호출하고 사용자가 브라우저에서 승인하게 안내한다.
+- 아티팩트: Figma 가 없으면 `design/<컨셉>/tokens.json` 과 승인 주석(`approved:`)이 있는 `layout-*.html`, `component-*.html` 을 원본으로 쓴다. 토큰은 `tokens.json` 에서, 구조와 상태는 HTML 에서 읽는다. 승인 주석이 없는 파일은 쓰지 않고 사용자에게 알린다.
+- HTML 시안이나 이미지: 둘 다 없고 사용자가 파일을 주면 그것을 원본으로 쓰되, 색과 간격을 먼저 토큰 파일로 뽑아 사용자에게 확인받은 뒤 구현한다.
+- Figma 와 `tokens.json` 이 둘 다 있으면 서로 같은지 확인한다. 다르면 Figma 를 원본으로 보고 사용자에게 알린다.
+- 아무것도 없으면 구현하지 않고 `designer` 페르소나로 디자인을 먼저 만들게 안내한다.
 
 ## 2. 읽기
 
@@ -50,6 +54,8 @@ Figma Variables 컬렉션 `Color`(모드 Light, Dark), `Space`, `Radius`, `Type`
    디자이너 토큰에 해당 역할이 없으면 사용자에게 알리고 임의로 채우지 않는다. `success`, `warning`, `info` 처럼 shadcn/ui 에 없는 상태색은 `--success` 같은 추가 변수로 둔다.
 3. 경계선 변수(`breakpoint/tablet`, `breakpoint/pc`)는 Tailwind 테마 `screens` 로 등록한다.
 4. 글자 크기, 간격, 모서리 토큰도 Tailwind 테마에 등록해 `text-body`, `p-4`, `rounded-md` 처럼 토큰 이름으로 쓴다.
+5. 모션 토큰(`motion/duration/*`, `motion/easing/*`)은 CSS 변수(`--motion-duration-fast`, `--motion-easing-enter`)로 두고 transition 과 animation 에서 그 변수만 쓴다. 어느 상태 전환에 어떤 토큰을 쓰는지는 컴포넌트 아티팩트나 Figma 컴포넌트 설명에 적혀 있다.
+6. 아티팩트가 원본이면 `tokens.json` 에서 같은 규칙으로 옮긴다. 토큰 이름의 점을 하이픈으로 바꾼다.
 
 ## 4. 컴포넌트와 화면 옮기기
 

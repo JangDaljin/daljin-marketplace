@@ -21,6 +21,7 @@ Figma 파일 하나가 컨셉 하나의 디자인 모음집이다. 승인된 것
 | `Space` | 없음 | `space/4` | Number |
 | `Radius` | 없음 | `radius/md` | Number |
 | `Type` | 없음 | `font/size/body` | Number |
+| `Motion` | 없음 | `motion/duration/fast`, `motion/easing/enter` | Number, String |
 
 - 원시 색은 두 모드에 같은 값을 넣는다. 의미 색은 모드별로 원시 변수의 별칭을 넣는다.
 - 토큰 이름의 점을 빗금으로 바꾼다. 그 밖의 이름 변경은 하지 않는다.
@@ -32,7 +33,7 @@ Figma 파일 하나가 컨셉 하나의 디자인 모음집이다. 승인된 것
 | --- | --- | --- |
 | 화면 프레임 | `화면/구간 폭` | `Home/Mobile 375`, `Home/Tablet 768`, `Home/PC 1440` |
 | 컴포넌트 | PascalCase | `TransactionItem` |
-| variant 속성 | `State`, `Size`, `Type` | `State=Pressed` |
+| variant 속성 | `State`, `Size`, `Type` | `State=Pressed`, `State=WorstCase` |
 | Foundations 프레임 | 영어 명사 | `Colors` |
 
 ## figma.md 기록 형식

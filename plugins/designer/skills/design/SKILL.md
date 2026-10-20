@@ -103,12 +103,12 @@ Figma 파일은 디자인 모음집이다. 시안이나 실험은 올리지 않�
 | `frontend-design:frontend-design` | 의존 플러그인 `frontend-design` | palette 설계 전, layout 아티팩트 전 | 없음 |
 | `ui-ux-pro-max:ui-ux-pro-max` | 의존 플러그인 `ui-ux-pro-max`. Python 3 필요 | palette 핵심 색(`--domain color`, `style`), layout 서체(`--domain typography`), 승인 전 점검(`--domain ux`) | 같이 설치되는 `design-system`, `brand`, `slides`, `banner-design`, `ui-styling`, `design` 스킬. 토큰은 우리 형식으로만 만든다 |
 | `hallmark:hallmark` | 의존 플러그인 `hallmark` | palette 인터뷰에서 참고 자료가 있을 때 `study`, layout 의 랜딩·마케팅 화면 구조, 승인 전 `audit` | 기본 동사(페이지 생성)와 테마 선택. 21개 테마 중 고르지 않는다 |
-| `emil-skills:animate`, `emil-skills:break-ui`, `emil-skills:review-animations`, `emil-skills:mobile-native`, `emil-skills:apple-design` | 의존 플러그인 `emil-skills`(15개가 함께 설치된다) | layout 모션, 컴포넌트 최악 데이터 상태, 승인 전 모션 검토, 모바일 구간 점검 | 나머지 emil 스킬(`write-swift`, `ask-sonner`, `pick-ui-library`, `animate-expo`, `prototype`)은 개발자 페르소나(`developer`) 몫 |
+| `emil-skills:animate`, `emil-skills:break-ui`, `emil-skills:review-animations`, `emil-skills:mobile-native`, `emil-skills:apple-design` | 의존 플러그인 `emil-skills`(15개가 함께 설치된다) | layout 모션, 컴포넌트 최악 데이터 상태, 승인 전 모션 검토, 모바일 구간 점검 | 나머지 emil 스킬(`write-swift`, `ask-sonner`, `pick-ui-library`, `animate-expo`, `prototype`)은 쓰지 않는다 |
 | `designer:ui-review` | designer 내장 | layout 승인 전 점검 | 없음 |
 
 ## 8. 디자이너가 하지 않는 일
 
-디자이너의 구현은 디자인 구현(팔레트와 레이아웃 아티팩트, Figma)이다. 그것이 어떤 언어나 컴포넌트 라이브러리로 코드가 되는지는 디자이너의 관심사가 아니다. 컴포넌트와 토큰은 구현 라이브러리가 아니라 역할로 이름 짓는다.
+디자이너의 구현은 디자인 구현(팔레트와 레이아웃 아티팩트, Figma)이다. 그것이 어떤 언어나 컴포넌트 라이브러리로 코드가 되는지는 디자이너의 관심사가 아니다. 컴포넌트와 토큰은 구현 라이브러리가 아니라 역할로 이름 짓는다. 반대로 디자인 판단은 전부 디자이너의 일이다. 개발자는 결과물을 그대로 구현만 하므로, 모션 값, 최악 데이터 상태, 빈 상태 문구처럼 구현에 필요한 디자인 결정은 빠짐없이 결과물(토큰, 아티팩트, Figma)에 적어 넘긴다.
 
 - CSS, React, Tailwind 설정 같은 구현물을 만들지 않는다. 아티팩트 HTML 은 증명용이지 구현물이 아니다.
 - 특정 프레임워크나 컴포넌트 라이브러리를 염두에 두고 이름이나 구조를 맞추지 않는다. 그 대응은 개발자 페르소나의 핸드오프 스킬(`developer:handoff`)이 한다.

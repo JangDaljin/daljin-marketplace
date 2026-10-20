@@ -65,6 +65,16 @@ W3C Design Tokens 형식(Design Tokens Community Group Format Module)을 따른�
     "2": { "$type": "dimension", "$value": "8px" },
     "4": { "$type": "dimension", "$value": "16px" }
   },
+  "motion": {
+    "duration": {
+      "fast":   { "$type": "duration", "$value": "120ms" },
+      "normal": { "$type": "duration", "$value": "200ms" }
+    },
+    "easing": {
+      "enter": { "$type": "cubicBezier", "$value": [0, 0, 0.2, 1] },
+      "exit":  { "$type": "cubicBezier", "$value": [0.4, 0, 1, 1] }
+    }
+  },
   "radius": {
     "sm": { "$type": "dimension", "$value": "6px" },
     "md": { "$type": "dimension", "$value": "12px" }

@@ -16,7 +16,7 @@
     {
       "name": "developer",
       "source": "./plugins/developer",
-      "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 MCP, 서버 하네스(backend, java, nestjs), 프론트엔드 하네스(frontend, nextjs, Figma handoff, ui-review)"
+      "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 MCP, 서버 하네스(backend, java, nestjs), 프론트엔드 하네스(frontend, nextjs, 디자인 결과물 handoff, ui-review). 디자인 판단은 하지 않는다"
     },
     {
       "name": "librarian",

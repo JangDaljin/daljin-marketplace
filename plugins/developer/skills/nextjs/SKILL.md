@@ -21,8 +21,9 @@ Next.js 프론트엔드 작업을 시작 전 준비, 구현, 검증, 마무리 �
 | 컴포넌트 | shadcn/ui(`components.json`, `components/ui/`). 아이콘은 lucide-react |
 | 상태 | 서버 컴포넌트와 URL 상태 우선. 클라이언트 전역 상태가 꼭 필요할 때만 zustand |
 | 데이터 호출 | 서버 컴포넌트에서 `fetch`. 클라이언트에서 필요하면 Route Handler 를 거친다 |
+| 그 밖의 UI 유틸 | 차트 recharts, 가상 스크롤 @tanstack/react-virtual, 드래그 @dnd-kit, 날짜 date-fns. 표에 없는 것은 사용자에게 묻는다 |
 | 폼 | react-hook-form + zod. 서버 검증은 Server Action 안에서 같은 zod 스키마 |
-| 토스트 | sonner(`emil-skills:ask-sonner`) |
+| 토스트 | sonner |
 | 테스트 | Vitest + Testing Library(컴포넌트), Playwright(E2E) |
 | 린트, 포맷 | ESLint flat config + typescript-eslint + `@stylistic` + `@next/eslint-plugin-next` + `eslint-plugin-jsx-a11y`. Prettier, Biome 은 쓰지 않는다 |
 | 패키지 매니저 | pnpm. npm, yarn 은 쓰지 않는다 |
