@@ -59,6 +59,7 @@ description: 승인된 토큰과 레이아웃 아티팩트를 Figma MCP 로 Figm
 
 - `design/<컨셉>/figma.md` 에 파일 URL, 페이지와 프레임의 노드 id, 마지막 동기화 시각을 `references/figma-structure.md` 형식으로 적는다.
 - 보고에는 올린 것, 손으로 해야 할 것, 아티팩트와 다른 점이 남아 있는지를 넣는다.
+- 차이가 없으면 "개발자에게 넘기는 것은 `designer:handoff` 로 할 수 있다" 고 한 줄 알린다. 요청 전에 핸드오프를 시작하지 않는다.
 
 ## 6. 변경 반영
 

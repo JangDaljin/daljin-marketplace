@@ -69,5 +69,5 @@ description: 프론트엔드 구현에 쓰는 스타일링과 컴포넌트 라�
 - 필요한 컴포넌트는 먼저 shadcn/ui 에서 찾아 `pnpm dlx shadcn@latest add <이름>` 으로 추가한다.
 - 없으면 shadcn/ui 컴포넌트를 조합해 기능 컴포넌트를 만든다. 그래도 안 될 때만 새로 만들되 shadcn/ui 와 같은 구조(`cva` variant, `cn`, Radix 또는 Base UI 프리미티브, `forwardRef` 와 `asChild`)로 쓴다.
 - `components/ui/` 아래 shadcn/ui 가 생성한 파일은 CLI 로 다시 생성할 수 있어야 하므로 손으로 크게 고치지 않는다. 변형이 필요하면 감싸는 컴포넌트를 만들거나 `cva` variant 를 추가한다.
-- 디자인 원본의 variant(`State=Pressed`, `Size=Sm`)는 shadcn/ui variant 나 상태로 옮긴다. 대응은 `developer:handoff` 가 `design/<컨셉>/handoff.md` 에 적고, 같은 원본 컴포넌트를 두 군데서 다르게 옮기지 않는다.
+- 디자인 원본의 variant(`State=Pressed`, `Size=Sm`)는 shadcn/ui variant 나 상태로 옮긴다. 대응은 `developer:implement-design` 가 `design/<컨셉>/implementation.md` 에 적고, 같은 원본 컴포넌트를 두 군데서 다르게 옮기지 않는다.
 - 다른 컴포넌트 라이브러리는 프로젝트가 이미 쓰고 있을 때만 쓴다. 새로 들이기 전에 사용자에게 묻는다.

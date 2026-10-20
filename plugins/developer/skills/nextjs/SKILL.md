@@ -7,7 +7,7 @@ description: Next.js(App Router) + React + TypeScript 프론트엔드를 개인 
 
 Next.js 프론트엔드 작업을 시작 전 준비, 구현, 검증, 마무리 순서로 진행한다.
 
-공통 규칙(작업 흐름, 디자인 원본, 접근성, 모션, UI 글)은 `developer:frontend` 에, 스타일과 컴포넌트 라이브러리(Tailwind, shadcn/ui)는 `developer:design-library` 에, 디자인 결과물을 코드로 옮기는 절차는 `developer:handoff` 에 있다. 이 하네스를 쓸 때 그 셋도 함께 불러 따른다. 이 문서는 Next.js 고유 내용만 적는다.
+공통 규칙(작업 흐름, 디자인 원본, 접근성, 모션, UI 글)은 `developer:frontend` 에, 스타일과 컴포넌트 라이브러리(Tailwind, shadcn/ui)는 `developer:design-library` 에, 디자이너가 넘긴 디자인을 받아 구현하는 절차는 `developer:implement-design` 에 있다. 이 하네스를 쓸 때 그 셋도 함께 불러 따른다. 이 문서는 Next.js 고유 내용만 적는다.
 
 작업 중인 프로젝트에 정의된 규칙(문서, 린트와 빌드 설정, Pages Router 나 npm 같은 기존 선택, 이미 쓰는 컴포넌트 라이브러리)이 있으면 그 규칙이 최우선이다(`frontend` 스킬 0절). 다른 점은 사용자에게 알리고 프로젝트를 하네스에 맞게 바꾸지 않는다.
 
@@ -58,7 +58,7 @@ Next 설정 키처럼 버전마다 달라지는 부분은 작성 전에 context7
 - App Router 인지, Next 버전
 - 컴포넌트 라이브러리 상태는 `developer:design-library` 기준으로 확인
 - `pnpm-lock.yaml`, ESLint flat config, husky `pre-push`
-- 디자인 토큰이 이미 `globals.css` 에 있는지, 있다면 디자인 원본과 맞는지(`developer:handoff` 5절)
+- 디자인 토큰이 이미 `globals.css` 에 있는지, 있다면 디자인 원본과 맞는지(`developer:implement-design` 5절)
 
 ## 2. 구현
 
@@ -109,5 +109,5 @@ E2E 는 `pnpm test:e2e` 로 따로 돌리고, 화면 흐름을 바꾼 작업에�
 ## 5. 마무리
 
 - `frontend` 스킬 1.3 의 UI 검토를 돌린다.
-- 핸드오프로 구현한 화면이면 `design/<컨셉>/handoff.md` 의 상태를 갱신한다(`developer:handoff` 6절).
+- 핸드오프로 구현한 화면이면 `design/<컨셉>/implementation.md` 의 상태를 갱신한다(`developer:implement-design` 6절).
 - 커밋 메시지는 `frontend` 스킬 1.5 를 따른다.

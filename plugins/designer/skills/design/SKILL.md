@@ -1,11 +1,11 @@
 ---
 name: design
-description: 모든 디자인 작업에 적용하는 공통 규칙. 작업 순서와 승인 게이트(팔레트 승인 전 레이아웃 금지, 아티팩트 승인 전 Figma 금지), 디자인 작업 폴더와 토큰 파일(W3C Design Tokens), 토큰 이름 규칙, 기본 화면 폭과 경계선(모바일 768 미만, 태블릿 768 이상, PC 1280 이상), Figma 파일 구조, 외부 스킬(frontend-design, ui-ux-pro-max, hallmark, emil) 사용 규칙, 디자이너가 하지 않는 일(구현 코드)을 정한다. 팔레트, 레이아웃, Figma 반영 작업을 시작할 때, "/designer:design" 요청 시 사용. 단계별 스킬(designer:palette, designer:layout, designer:figma-sync)과 함께 쓴다.
+description: 모든 디자인 작업에 적용하는 공통 규칙. 작업 순서와 승인 게이트(팔레트 승인 전 레이아웃 금지, 아티팩트 승인 전 Figma 금지, 전달 점검표 통과 전 핸드오프 금지), 디자인 작업 폴더와 토큰 파일(W3C Design Tokens), 토큰 이름 규칙, 기본 화면 폭과 경계선(모바일 768 미만, 태블릿 768 이상, PC 1280 이상), Figma 파일 구조, 외부 스킬(frontend-design, ui-ux-pro-max, hallmark, emil) 사용 규칙, 디자이너가 하지 않는 일(구현 코드)을 정한다. 팔레트, 레이아웃, Figma 반영 작업을 시작할 때, "/designer:design" 요청 시 사용. 단계별 스킬(designer:palette, designer:layout, designer:figma-sync, designer:handoff)과 함께 쓴다.
 ---
 
 # 디자인 공통 규칙
 
-모든 디자인 작업에 적용하는 규칙이다. 단계별 방법은 `designer:palette`, `designer:layout`, `designer:figma-sync` 에 있다. 이 스킬과 단계별 스킬이 부딪히면 사용자에게 묻는다.
+모든 디자인 작업에 적용하는 규칙이다. 단계별 방법은 `designer:palette`, `designer:layout`, `designer:figma-sync`, `designer:handoff` 에 있다. 이 스킬과 단계별 스킬이 부딪히면 사용자에게 묻는다.
 
 ## 0. 프로젝트 규칙 우선
 
@@ -14,13 +14,14 @@ description: 모든 디자인 작업에 적용하는 공통 규칙. 작업 순�
 
 ## 1. 작업 순서와 승인 게이트
 
-디자인은 팔레트, 레이아웃, Figma 반영 순서로 진행한다. 단계마다 아티팩트로 증명하고 사용자 승인을 받은 뒤에만 다음 단계로 간다.
+디자인은 팔레트, 레이아웃, Figma 반영, 핸드오프 순서로 진행한다. 단계마다 아티팩트로 증명하고 사용자 승인을 받은 뒤에만 다음 단계로 간다.
 
 | 단계 | 스킬 | 증명물 | 다음 단계 조건 |
 | --- | --- | --- | --- |
 | 1 | `designer:palette` | 색 팔레트 아티팩트 | 사용자가 팔레트를 승인 |
 | 2 | `designer:layout` | 화면, 컴포넌트 레이아웃 아티팩트 | 토큰 검사와 `designer:ui-review` 통과, 사용자가 레이아웃을 승인 |
 | 3 | `designer:figma-sync` | Figma 파일 | 아티팩트와 Figma 가 일치 |
+| 4 | `designer:handoff` | 전달 명세 `handoff.md` | 전달 점검표를 모두 통과 |
 
 - 승인된 팔레트가 없으면 레이아웃을 만들지 않는다. 사용자가 레이아웃부터 요청해도 팔레트 단계로 돌아가 승인을 먼저 받는다.
 - 아티팩트 승인이 없으면 Figma 에 아무것도 올리지 않는다.
@@ -39,6 +40,8 @@ description: 모든 디자인 작업에 적용하는 공통 규칙. 작업 순�
 | `layout-<화면>.html` | 화면 레이아웃 아티팩트 | layout |
 | `component-<이름>.html` | 컴포넌트 상태 아티팩트 | layout |
 | `figma.md` | Figma 파일 URL, 페이지와 노드 id, 마지막 동기화 시각 | figma-sync |
+| `handoff.md` | 개발자에게 넘기는 전달 명세. 디자이너가 쓴다 | handoff |
+| `implementation.md` | 개발자가 쓰는 대응과 진행 기록. 디자이너는 읽기만 한다 | 개발자(`developer:implement-design`) |
 
 - 아티팩트 HTML 은 `tokens.json` 에서 만든다. HTML 에 색 값을 직접 쓰지 않고 CSS 변수(`--color-primary-500`)로만 쓴다. 변수 선언 블록만 토큰 값을 가진다.
 - 아티팩트는 Artifact 도구로 올려 사용자에게 링크를 준다. 같은 파일을 다시 올려 같은 URL 을 유지한다.
@@ -108,9 +111,9 @@ Figma 파일은 디자인 모음집이다. 시안이나 실험은 올리지 않�
 
 ## 8. 디자이너가 하지 않는 일
 
-디자이너의 구현은 디자인 구현(팔레트와 레이아웃 아티팩트, Figma)이다. 그것이 어떤 언어나 컴포넌트 라이브러리로 코드가 되는지는 디자이너의 관심사가 아니다. 컴포넌트와 토큰은 구현 라이브러리가 아니라 역할로 이름 짓는다. 반대로 디자인 판단은 전부 디자이너의 일이다. 개발자는 결과물을 그대로 구현만 하므로, 모션 값, 최악 데이터 상태, 빈 상태 문구처럼 구현에 필요한 디자인 결정은 빠짐없이 결과물(토큰, 아티팩트, Figma)에 적어 넘긴다.
+디자이너의 구현은 디자인 구현(팔레트와 레이아웃 아티팩트, Figma)이다. 그것이 어떤 언어나 컴포넌트 라이브러리로 코드가 되는지는 디자이너의 관심사가 아니다. 컴포넌트와 토큰은 구현 라이브러리가 아니라 역할로 이름 짓는다. 반대로 디자인 판단은 전부 디자이너의 일이다. 개발자는 결과물을 그대로 구현만 하므로, 모션 값, 최악 데이터 상태, 빈 상태 문구처럼 구현에 필요한 디자인 결정은 빠짐없이 결과물(토큰, 아티팩트, Figma)에 적고 `designer:handoff` 의 점검표로 확인한 뒤 넘긴다.
 
 - CSS, React, Tailwind 설정 같은 구현물을 만들지 않는다. 아티팩트 HTML 은 증명용이지 구현물이 아니다.
-- 특정 프레임워크나 컴포넌트 라이브러리를 염두에 두고 이름이나 구조를 맞추지 않는다. 그 대응은 개발자 페르소나의 핸드오프 스킬(`developer:handoff`)이 한다.
-- Figma 에서 코드를 뽑아 구현하는 일(핸드오프)은 개발자 페르소나(`developer:frontend`, `developer:handoff`)의 일이다. 디자이너는 개발자가 그대로 읽어도 될 만큼 Figma 를 정돈하는 데서 끝낸다.
+- 특정 프레임워크나 컴포넌트 라이브러리를 염두에 두고 이름이나 구조를 맞추지 않는다. 그 대응은 개발자 페르소나의 받는 스킬(`developer:implement-design`)이 한다.
+- 넘긴 디자인을 코드로 구현하는 일은 개발자 페르소나(`developer:frontend`, `developer:implement-design`)의 일이다. 디자이너는 `designer:handoff` 로 빠짐없이 넘기는 데서 끝낸다.
 - 사용자 승인 없이 토큰 값을 바꾸지 않는다.

@@ -1,8 +1,8 @@
 {
   "name": "developer",
   "displayName": "Developer",
-  "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 도구, 서버(backend, java, nestjs)와 프론트엔드(frontend, design-library, nextjs, handoff, ui-review) 하네스",
-  "version": "0.13.0",
+  "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 도구, 서버(backend, java, nestjs)와 프론트엔드(frontend, design-library, nextjs, implement-design, ui-review) 하네스",
+  "version": "0.14.0",
   "author": {
     "name": "Wonjin Jang"
   },
@@ -16,6 +16,7 @@
     "nextjs",
     "react",
     "shadcn",
-    "figma"
+    "figma",
+    "implement-design"
   ]
 }
