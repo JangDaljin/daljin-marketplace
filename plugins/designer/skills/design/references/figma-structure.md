@@ -31,24 +31,9 @@ Figma 파일 하나가 컨셉 하나의 디자인 모음집이다. 승인된 것
 | 대상 | 규칙 | 예 |
 | --- | --- | --- |
 | 화면 프레임 | `화면/구간 폭` | `Home/Mobile 375`, `Home/Tablet 768`, `Home/PC 1440` |
-| 컴포넌트 | shadcn/ui 에 같은 역할이 있으면 그 이름, 없으면 PascalCase 새 이름 | `Button`, `Card`, `TransactionItem` |
-| variant 속성 | shadcn/ui 컴포넌트는 그 variant 이름(`Variant`, `Size`)을 그대로, 그 밖에는 `State`, `Size`, `Type` | `Variant=Destructive`, `Size=Sm`, `State=Pressed` |
+| 컴포넌트 | PascalCase | `TransactionItem` |
+| variant 속성 | `State`, `Size`, `Type` | `State=Pressed` |
 | Foundations 프레임 | 영어 명사 | `Colors` |
-
-## shadcn/ui 대응
-
-프론트엔드는 shadcn/ui 로 구현한다. 핸드오프가 이름만 보고 1대1 로 옮길 수 있게 다음을 지킨다.
-
-| shadcn/ui 컴포넌트 | 쓰는 자리 | variant |
-| --- | --- | --- |
-| `Button` | 모든 버튼 | `Variant`: Default, Secondary, Destructive, Outline, Ghost, Link. `Size`: Default, Sm, Lg, Icon |
-| `Card` | 카드, 시트 바탕 | 없음. 내부는 `CardHeader`, `CardContent`, `CardFooter` 프레임 |
-| `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch` | 폼 요소 | shadcn/ui 상태(default, focus, disabled, invalid) |
-| `Dialog`, `Sheet`, `Drawer`, `Popover`, `DropdownMenu` | 겹쳐 뜨는 요소 | 없음 |
-| `Tabs`, `Accordion`, `Table`, `Badge`, `Avatar`, `Skeleton`, `Toast`(sonner), `Tooltip` | 각 역할 | shadcn/ui 기본 variant |
-
-- 의미 색 토큰은 shadcn/ui 테마 변수와 대응되게 둔다. `color.bg.canvas` 는 `background`, `color.bg.surface` 는 `card`, `color.text.primary` 는 `foreground`, `color.action.primary` 는 `primary`, `color.action.primary-text` 는 `primary-foreground`, `color.status.error` 는 `destructive`, `color.border.default` 는 `border`, `color.border.strong` 은 `ring`, `radius.md` 는 `--radius`. 토큰 이름을 바꾸지는 않고 `tokens.json` 의 `$extensions.daljin.shadcn` 에 대응 변수 이름을 적는다.
-- shadcn/ui 에 없는 컴포넌트(예: `TransactionItem`)는 shadcn/ui 컴포넌트를 조합해 만들 수 있는지 Components 프레임 설명에 적는다(`Card + Badge + Button/Ghost`).
 
 ## figma.md 기록 형식
 
