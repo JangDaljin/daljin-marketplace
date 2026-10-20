@@ -88,6 +88,7 @@ Figma 파일은 디자인 모음집이다. 시안이나 실험은 올리지 않�
 
 - 토큰은 Variables 로 올린다. 컬렉션은 `Color`(모드 `Light`, `Dark`), `Space`, `Radius`, `Type`.
 - 프레임과 컴포넌트 이름은 `화면/구간 폭` 또는 `컴포넌트/상태` 로 짓는다: `Home/Mobile 375`, `Home/Tablet 768`, `Home/PC 1440`, `TransactionItem/Pressed`
+- 프론트엔드는 shadcn/ui 로 구현한다. 그래서 shadcn/ui 에 같은 역할의 컴포넌트가 있으면 그 이름과 variant 이름을 그대로 쓴다(`Button/Variant=Destructive`, `Card`, `Dialog`, `Sheet`, `Badge`, `Input`, `Select`, `Tabs`, `Toast`). shadcn/ui 에 없는 컴포넌트만 새 이름을 짓는다. 상세는 `references/figma-structure.md` 에 있다.
 - 컴포넌트 색은 Variables 를 바인딩한다. 값을 직접 넣지 않는다.
 
 ## 7. 외부 스킬
@@ -108,6 +109,6 @@ Figma 파일은 디자인 모음집이다. 시안이나 실험은 올리지 않�
 
 ## 8. 디자이너가 하지 않는 일
 
-- CSS, React, Tailwind 설정 같은 구현물을 만들지 않는다. 아티팩트 HTML 은 증명용이지 구현물이 아니다.
-- Figma 에서 코드를 뽑아 프론트엔드에 넘기는 일(핸드오프)은 프론트엔드 페르소나의 일이다. 디자이너는 프론트엔드가 그대로 읽어도 될 만큼 Figma 를 정돈하는 데서 끝낸다.
+- CSS, React 컴포넌트, shadcn/ui 설치와 테마 설정 같은 구현물을 만들지 않는다. 아티팩트 HTML 은 증명용이지 구현물이 아니다.
+- Figma 에서 코드를 뽑아 프론트엔드에 넘기는 일(핸드오프)은 프론트엔드 페르소나의 일이다. 프론트엔드는 shadcn/ui 컴포넌트 위에 구현하므로, 디자이너는 Figma 의 컴포넌트와 토큰 이름이 shadcn/ui 와 바로 대응되게 정돈하는 데서 끝낸다.
 - 사용자 승인 없이 토큰 값을 바꾸지 않는다.

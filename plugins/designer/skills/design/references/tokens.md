@@ -111,6 +111,20 @@ W3C Design Tokens 형식(Design Tokens Community Group Format Module)을 따른�
 - 의미 토큰은 반드시 별칭이다. 의미 토큰에 색 값을 직접 쓰지 않는다. 필요한 색이 원시 단계에 없으면 원시 토큰을 추가한다.
 - 다크 값은 `$extensions.daljin.dark` 에 별칭으로 둔다. 없으면 라이트 값을 그대로 쓴다.
 
+## shadcn/ui 대응 기록
+
+프론트엔드가 shadcn/ui 로 구현하므로 의미 토큰에는 대응하는 shadcn/ui 테마 변수를 적는다. 토큰 이름은 바꾸지 않는다.
+
+```json
+"canvas": {
+  "$type": "color",
+  "$value": "{color.neutral.50}",
+  "$extensions": { "daljin": { "dark": "{color.neutral.950}", "shadcn": "background" } }
+}
+```
+
+대응표는 `figma-structure.md` 의 shadcn/ui 대응 절에 있다.
+
 ## CSS 변수 이름
 
 아티팩트 HTML 에서는 토큰 이름의 점을 하이픈으로 바꾸고 `--` 를 붙인다: `color.bg.canvas` 는 `--color-bg-canvas`. 라이트 값은 `:root` 에, 다크 값은 `:root[data-theme="dark"]` 와 `@media (prefers-color-scheme: dark)` 안의 `:root:not([data-theme="light"])` 에 선언한다.
