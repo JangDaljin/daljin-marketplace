@@ -1,13 +1,13 @@
 ---
 name: nextjs
-description: Next.js(App Router) + React + TypeScript + Tailwind + shadcn/ui 프론트엔드를 개인 규약대로 만들고 고치는 하네스. 기술 스택, Next 16 변경점(async params와 cookies, proxy, Turbopack, next lint 제거), 새 프로젝트 셋업(pnpm, shadcn init, ESLint flat config, Vitest, Playwright, husky), 폴더 구조, 서버와 클라이언트 컴포넌트 경계, 데이터 호출과 인증 쿠키, 테스트, 검증 순서를 정한다. Next.js 프로젝트를 새로 만들거나 이 규약을 따르는 프론트 레포에서 화면과 컴포넌트를 추가·수정할 때, "/developer:nextjs" 요청 시 사용.
+description: Next.js(App Router) + React + TypeScript 프론트엔드를 개인 규약대로 만들고 고치는 하네스. Next.js 고유 내용만 다룬다. 기술 스택, Next 16 변경점(async params와 cookies, proxy, Turbopack, next lint 제거), 새 프로젝트 셋업(pnpm, ESLint flat config, Vitest, Playwright, husky), 폴더 구조, 서버와 클라이언트 컴포넌트 경계, 데이터 호출과 인증 쿠키, 로딩·오류·빈 상태, 테스트, 검증 순서를 정한다. 스타일과 컴포넌트 라이브러리는 developer:design-library 에 있다. Next.js 프로젝트를 새로 만들거나 이 규약을 따르는 프론트 레포에서 화면과 컴포넌트를 추가·수정할 때, "/developer:nextjs" 요청 시 사용.
 ---
 
 # Next.js 하네스
 
 Next.js 프론트엔드 작업을 시작 전 준비, 구현, 검증, 마무리 순서로 진행한다.
 
-공통 규칙(작업 흐름, 디자인 원본은 Figma, shadcn/ui 우선, 접근성, 모션, UI 글)은 `developer:frontend` 스킬에 있다. 이 하네스를 쓸 때 그 스킬도 함께 불러 따른다. Figma 를 코드로 옮기는 절차는 `developer:handoff` 다. 이 문서는 그 규칙을 Next.js 로 구현하는 방법만 적는다.
+공통 규칙(작업 흐름, 디자인 원본, 접근성, 모션, UI 글)은 `developer:frontend` 에, 스타일과 컴포넌트 라이브러리(Tailwind, shadcn/ui)는 `developer:design-library` 에, 디자인 결과물을 코드로 옮기는 절차는 `developer:handoff` 에 있다. 이 하네스를 쓸 때 그 셋도 함께 불러 따른다. 이 문서는 Next.js 고유 내용만 적는다.
 
 작업 중인 프로젝트에 정의된 규칙(문서, 린트와 빌드 설정, Pages Router 나 npm 같은 기존 선택, 이미 쓰는 컴포넌트 라이브러리)이 있으면 그 규칙이 최우선이다(`frontend` 스킬 0절). 다른 점은 사용자에게 알리고 프로젝트를 하네스에 맞게 바꾸지 않는다.
 
@@ -17,19 +17,16 @@ Next.js 프론트엔드 작업을 시작 전 준비, 구현, 검증, 마무리 �
 | --- | --- |
 | 프레임워크 | Next.js 최신 안정 버전, App Router. Pages Router 는 쓰지 않는다 |
 | 언어 | TypeScript(`strict`), React 최신 안정 버전 |
-| 스타일 | Tailwind CSS v4. 디자인 토큰은 `globals.css` 의 CSS 변수로만 |
-| 컴포넌트 | shadcn/ui(`components.json`, `components/ui/`). 아이콘은 lucide-react |
+| 스타일, 컴포넌트 | `developer:design-library`(Tailwind v4, shadcn/ui) |
 | 상태 | 서버 컴포넌트와 URL 상태 우선. 클라이언트 전역 상태가 꼭 필요할 때만 zustand |
 | 데이터 호출 | 서버 컴포넌트에서 `fetch`. 클라이언트에서 필요하면 Route Handler 를 거친다 |
-| 그 밖의 UI 유틸 | 차트 recharts, 가상 스크롤 @tanstack/react-virtual, 드래그 @dnd-kit, 날짜 date-fns. 표에 없는 것은 사용자에게 묻는다 |
-| 폼 | react-hook-form + zod. 서버 검증은 Server Action 안에서 같은 zod 스키마 |
-| 토스트 | sonner |
+| 폼 서버 검증 | Server Action 안에서 클라이언트와 같은 zod 스키마 |
 | 테스트 | Vitest + Testing Library(컴포넌트), Playwright(E2E) |
 | 린트, 포맷 | ESLint flat config + typescript-eslint + `@stylistic` + `@next/eslint-plugin-next` + `eslint-plugin-jsx-a11y`. Prettier, Biome 은 쓰지 않는다 |
 | 패키지 매니저 | pnpm. npm, yarn 은 쓰지 않는다 |
 | Git 훅 | husky `pre-push` |
 
-라이브러리 API 가 버전마다 달라지는 부분(Next 설정 키, shadcn/ui CLI, Tailwind v4 설정)은 작성 전에 context7 MCP 로 설치된 버전의 문서를 확인한다. Next.js 는 `node_modules/next/dist/docs/` 에 공식 문서가 동봉되어 있으니 그것을 먼저 읽는다.
+Next 설정 키처럼 버전마다 달라지는 부분은 작성 전에 context7 MCP 로 설치된 버전의 문서를 확인한다. Next.js 는 `node_modules/next/dist/docs/` 에 공식 문서가 동봉되어 있으니 그것을 먼저 읽는다.
 
 ## Next 16 에서 반드시 걸리는 것
 
@@ -49,7 +46,7 @@ Next.js 프론트엔드 작업을 시작 전 준비, 구현, 검증, 마무리 �
 ### 1.1 새 프로젝트
 
 1. `pnpm create next-app@latest <이름> --typescript --tailwind --eslint --app --src-dir --use-pnpm` 으로 만든다.
-2. `pnpm dlx shadcn@latest init` 으로 shadcn/ui 를 넣는다. 스타일과 기본 색은 묻지 말고 중립으로 두고, 실제 색은 `developer:handoff` 가 Figma 토큰으로 채운다.
+2. 컴포넌트 라이브러리는 `developer:design-library` 2절대로 넣는다.
 3. ESLint flat config 를 기술 스택 표대로 구성하고, Vitest(`vitest.config.ts`, `jsdom`, Testing Library 설정), Playwright(`playwright.config.ts`), husky `pre-push`(검증 명령 순서대로) 를 넣는다.
 4. `package.json` 스크립트: `dev`, `build`, `start`, `lint`, `typecheck`(`tsc --noEmit`), `test`(Vitest), `test:e2e`(Playwright).
 5. `pnpm lint && pnpm typecheck && pnpm test && pnpm build` 가 통과하는 상태에서 기능 작업을 시작한다.
@@ -58,9 +55,10 @@ Next.js 프론트엔드 작업을 시작 전 준비, 구현, 검증, 마무리 �
 
 다음을 확인하고, 빠진 것은 바로 추가하지 말고 사용자에게 추가할지 묻는다.
 
-- App Router 인지, `components.json` 이 있는지, Tailwind 버전
+- App Router 인지, Next 버전
+- 컴포넌트 라이브러리 상태는 `developer:design-library` 기준으로 확인
 - `pnpm-lock.yaml`, ESLint flat config, husky `pre-push`
-- 디자인 토큰이 이미 `globals.css` 에 있는지, 있다면 Figma 와 맞는지(`developer:handoff` 5절)
+- 디자인 토큰이 이미 `globals.css` 에 있는지, 있다면 디자인 원본과 맞는지(`developer:handoff` 5절)
 
 ## 2. 구현
 
@@ -69,15 +67,15 @@ Next.js 프론트엔드 작업을 시작 전 준비, 구현, 검증, 마무리 �
 ```
 src/
   app/                 라우트. 각 세그먼트에 page, layout, loading, error, (필요시) default
-  components/ui/       shadcn/ui 가 생성. CLI 로만 추가하고 손으로 크게 고치지 않는다
-  components/<기능>/   기능별 조합 컴포넌트. Figma 컴포넌트 이름과 맞춘다
+  components/ui/       라이브러리가 생성하는 기본 컴포넌트(`developer:design-library` 5절)
+  components/<기능>/   기능별 조합 컴포넌트. 디자인 원본의 컴포넌트 이름과 맞춘다
   lib/                 유틸, API 클라이언트, zod 스키마
   hooks/               클라이언트 훅
   styles/globals.css   Tailwind 진입점과 디자인 토큰 CSS 변수
 ```
 
-- 컴포넌트 파일 이름은 kebab-case, 컴포넌트 이름은 PascalCase 다. Figma 컴포넌트 `TransactionItem` 은 `components/transactions/transaction-item.tsx` 의 `TransactionItem` 이다.
-- 한 파일에 컴포넌트 하나. 변형은 `cva` variant 로 두고 파일을 늘리지 않는다.
+- 컴포넌트 파일 이름은 kebab-case, 컴포넌트 이름은 PascalCase 다. 원본 컴포넌트 `TransactionItem` 은 `components/transactions/transaction-item.tsx` 의 `TransactionItem` 이다.
+- 한 파일에 컴포넌트 하나.
 
 ### 2.2 서버와 클라이언트 경계
 
@@ -86,16 +84,10 @@ src/
 - 비밀값(API 키, 토큰)은 서버에만 둔다. 클라이언트가 보호된 API 를 써야 하면 Route Handler 가 쿠키에서 토큰을 읽어 대신 부른다.
 - 인증 토큰은 httpOnly 쿠키에만 둔다. localStorage 에 두지 않는다.
 
-### 2.3 스타일
+### 2.3 로딩, 오류, 빈 상태
 
-- 색, 간격, 글자, 모서리는 `globals.css` 의 CSS 변수(Figma 토큰)와 그것을 가리키는 Tailwind 테마 토큰만 쓴다. 임의 값(`bg-[#2F6FED]`, `p-[13px]`)을 쓰지 않는다.
-- 다크 모드는 `data-theme` 속성 또는 `.dark` 클래스로 CSS 변수를 바꾼다. 컴포넌트에 `dark:` 변형을 늘어놓지 않는다.
-- 반응형은 Figma 토큰의 경계선을 Tailwind 테마 `screens` 로 등록해 쓴다. 기본은 `md` 768px, `xl` 1280px.
-
-### 2.4 로딩, 오류, 빈 상태
-
-- 라우트마다 `loading.tsx`(Skeleton), `error.tsx` 를 둔다.
-- 목록은 빈 상태 컴포넌트를 반드시 가진다. Figma 에 빈 상태 디자인이 없으면 사용자에게 알린다(`frontend` 스킬 2절).
+- 라우트마다 `loading.tsx`, `error.tsx` 를 둔다. 로딩 모양은 디자인 원본의 로딩 상태를 따른다.
+- 목록은 빈 상태 컴포넌트를 반드시 가진다. 원본에 빈 상태 디자인이 없으면 사용자에게 알린다(`frontend` 스킬 2절).
 
 ## 3. 테스트
 
