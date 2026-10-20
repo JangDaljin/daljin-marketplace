@@ -29,6 +29,11 @@
       "description": "디자인하는 직업 페르소나. 팔레트와 레이아웃을 아티팩트로 승인받고 Figma 에 디자인 모음집으로 올리는 스킬과 Figma MCP"
     },
     {
+      "name": "frontend",
+      "source": "./plugins/frontend",
+      "description": "프론트엔드 구현 페르소나. Figma 디자인 모음집을 읽어 shadcn/ui 위에 구현하는 공통 규칙, Next.js 하네스, 핸드오프, UI 검토"
+    },
+    {
       "name": "frontend-design",
       "description": "Anthropic 공식 frontend-design 스킬. designer 의 의존성으로만 쓴다. 원본은 anthropics/claude-code 의 plugins/frontend-design",
       "source": {

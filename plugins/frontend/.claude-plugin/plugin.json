@@ -1,0 +1,23 @@
+{
+  "name": "frontend",
+  "displayName": "Frontend",
+  "description": "프론트엔드 구현 페르소나. 디자이너가 Figma에 정돈한 디자인을 읽어 shadcn/ui 위에 구현한다. 공통 규칙, Next.js 하네스, Figma 핸드오프, UI 가이드라인 검토",
+  "version": "0.1.0",
+  "author": {
+    "name": "Wonjin Jang"
+  },
+  "keywords": [
+    "frontend",
+    "nextjs",
+    "react",
+    "shadcn",
+    "tailwind",
+    "figma",
+    "handoff"
+  ],
+  "dependencies": [
+    { "name": "frontend-design", "marketplace": "daljin-marketplace" },
+    { "name": "emil-skills", "marketplace": "daljin-marketplace" },
+    { "name": "ui-ux-pro-max", "marketplace": "daljin-marketplace" }
+  ]
+}
