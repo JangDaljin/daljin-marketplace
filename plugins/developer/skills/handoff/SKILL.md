@@ -1,11 +1,11 @@
 ---
 name: handoff
-description: 디자이너가 Figma에 정돈한 디자인 모음집을 Figma MCP로 읽어 코드로 옮기는 절차. Figma Variables를 CSS 변수와 shadcn/ui 테마 변수로, Figma 컴포넌트를 shadcn/ui 컴포넌트와 기능 컴포넌트로, 화면 프레임을 라우트로 옮기고, 대응표를 design/<컨셉>/handoff.md에 기록하며, 구현 화면 스크린샷을 Figma 프레임과 대조한다. "Figma 보고 구현해줘", "디자인 반영", "토큰 옮겨줘", "피그마랑 비교", "/frontend:handoff <Figma URL 또는 화면 이름>" 요청 시 사용.
+description: 디자이너가 Figma에 정돈한 디자인 모음집을 Figma MCP로 읽어 코드로 옮기는 절차. Figma Variables를 CSS 변수와 shadcn/ui 테마 변수로, Figma 컴포넌트를 shadcn/ui 컴포넌트와 기능 컴포넌트로, 화면 프레임을 라우트로 옮기고, 대응표를 design/<컨셉>/handoff.md에 기록하며, 구현 화면 스크린샷을 Figma 프레임과 대조한다. "Figma 보고 구현해줘", "디자인 반영", "토큰 옮겨줘", "피그마랑 비교", "/developer:handoff <Figma URL 또는 화면 이름>" 요청 시 사용.
 ---
 
 # Figma 핸드오프
 
-디자이너의 Figma 파일을 읽어 코드로 옮긴다. 공통 규칙(디자인 원본은 Figma, shadcn/ui 우선)은 `frontend:frontend` 스킬, 구현 방법은 하네스(`frontend:nextjs`)를 따른다.
+디자이너의 Figma 파일을 읽어 코드로 옮긴다. 공통 규칙(디자인 원본은 Figma, shadcn/ui 우선)은 `developer:frontend` 스킬, 구현 방법은 하네스(`developer:nextjs`)를 따른다.
 
 ## 1. 원본 찾기
 
@@ -83,7 +83,7 @@ Figma: https://www.figma.com/design/<fileKey>/<name>
 
 ## 토큰
 
-globals.css 에 반영. shadcn/ui 변수 대응은 frontend:handoff 3절 표 기준. 추가 변수: --success, --warning, --info
+globals.css 에 반영. shadcn/ui 변수 대응은 developer:handoff 3절 표 기준. 추가 변수: --success, --warning, --info
 
 ## 컴포넌트
 

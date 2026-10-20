@@ -23,7 +23,10 @@
     "codegraph": {
       "type": "stdio",
       "command": "codegraph",
-      "args": ["serve", "--mcp"]
+      "args": [
+        "serve",
+        "--mcp"
+      ]
     },
     "github": {
       "command": "npx",
@@ -44,7 +47,10 @@
     },
     "chrome-devtools": {
       "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
     },
     "notion": {
       "type": "http",
@@ -52,7 +58,9 @@
     },
     "atlassian": {
       "command": "uvx",
-      "args": ["mcp-atlassian"]
+      "args": [
+        "mcp-atlassian"
+      ]
     },
     "slack": {
       "type": "http",
@@ -61,6 +69,10 @@
         "clientId": "1601185624273.8899143856786",
         "callbackPort": 3118
       }
+    },
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
     }
   }
 }

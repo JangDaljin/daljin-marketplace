@@ -1,13 +1,13 @@
 ---
 name: nextjs
-description: Next.js(App Router) + React + TypeScript + Tailwind + shadcn/ui 프론트엔드를 개인 규약대로 만들고 고치는 하네스. 기술 스택, Next 16 변경점(async params와 cookies, proxy, Turbopack, next lint 제거), 새 프로젝트 셋업(pnpm, shadcn init, ESLint flat config, Vitest, Playwright, husky), 폴더 구조, 서버와 클라이언트 컴포넌트 경계, 데이터 호출과 인증 쿠키, 테스트, 검증 순서를 정한다. Next.js 프로젝트를 새로 만들거나 이 규약을 따르는 프론트 레포에서 화면과 컴포넌트를 추가·수정할 때, "/frontend:nextjs" 요청 시 사용.
+description: Next.js(App Router) + React + TypeScript + Tailwind + shadcn/ui 프론트엔드를 개인 규약대로 만들고 고치는 하네스. 기술 스택, Next 16 변경점(async params와 cookies, proxy, Turbopack, next lint 제거), 새 프로젝트 셋업(pnpm, shadcn init, ESLint flat config, Vitest, Playwright, husky), 폴더 구조, 서버와 클라이언트 컴포넌트 경계, 데이터 호출과 인증 쿠키, 테스트, 검증 순서를 정한다. Next.js 프로젝트를 새로 만들거나 이 규약을 따르는 프론트 레포에서 화면과 컴포넌트를 추가·수정할 때, "/developer:nextjs" 요청 시 사용.
 ---
 
 # Next.js 하네스
 
 Next.js 프론트엔드 작업을 시작 전 준비, 구현, 검증, 마무리 순서로 진행한다.
 
-공통 규칙(작업 흐름, 디자인 원본은 Figma, shadcn/ui 우선, 접근성, 모션, UI 글)은 `frontend:frontend` 스킬에 있다. 이 하네스를 쓸 때 그 스킬도 함께 불러 따른다. Figma 를 코드로 옮기는 절차는 `frontend:handoff` 다. 이 문서는 그 규칙을 Next.js 로 구현하는 방법만 적는다.
+공통 규칙(작업 흐름, 디자인 원본은 Figma, shadcn/ui 우선, 접근성, 모션, UI 글)은 `developer:frontend` 스킬에 있다. 이 하네스를 쓸 때 그 스킬도 함께 불러 따른다. Figma 를 코드로 옮기는 절차는 `developer:handoff` 다. 이 문서는 그 규칙을 Next.js 로 구현하는 방법만 적는다.
 
 작업 중인 프로젝트에 정의된 규칙(문서, 린트와 빌드 설정, Pages Router 나 npm 같은 기존 선택, 이미 쓰는 컴포넌트 라이브러리)이 있으면 그 규칙이 최우선이다(`frontend` 스킬 0절). 다른 점은 사용자에게 알리고 프로젝트를 하네스에 맞게 바꾸지 않는다.
 
@@ -48,7 +48,7 @@ Next.js 프론트엔드 작업을 시작 전 준비, 구현, 검증, 마무리 �
 ### 1.1 새 프로젝트
 
 1. `pnpm create next-app@latest <이름> --typescript --tailwind --eslint --app --src-dir --use-pnpm` 으로 만든다.
-2. `pnpm dlx shadcn@latest init` 으로 shadcn/ui 를 넣는다. 스타일과 기본 색은 묻지 말고 중립으로 두고, 실제 색은 `frontend:handoff` 가 Figma 토큰으로 채운다.
+2. `pnpm dlx shadcn@latest init` 으로 shadcn/ui 를 넣는다. 스타일과 기본 색은 묻지 말고 중립으로 두고, 실제 색은 `developer:handoff` 가 Figma 토큰으로 채운다.
 3. ESLint flat config 를 기술 스택 표대로 구성하고, Vitest(`vitest.config.ts`, `jsdom`, Testing Library 설정), Playwright(`playwright.config.ts`), husky `pre-push`(검증 명령 순서대로) 를 넣는다.
 4. `package.json` 스크립트: `dev`, `build`, `start`, `lint`, `typecheck`(`tsc --noEmit`), `test`(Vitest), `test:e2e`(Playwright).
 5. `pnpm lint && pnpm typecheck && pnpm test && pnpm build` 가 통과하는 상태에서 기능 작업을 시작한다.
@@ -59,7 +59,7 @@ Next.js 프론트엔드 작업을 시작 전 준비, 구현, 검증, 마무리 �
 
 - App Router 인지, `components.json` 이 있는지, Tailwind 버전
 - `pnpm-lock.yaml`, ESLint flat config, husky `pre-push`
-- 디자인 토큰이 이미 `globals.css` 에 있는지, 있다면 Figma 와 맞는지(`frontend:handoff` 5절)
+- 디자인 토큰이 이미 `globals.css` 에 있는지, 있다면 Figma 와 맞는지(`developer:handoff` 5절)
 
 ## 2. 구현
 
@@ -116,5 +116,5 @@ E2E 는 `pnpm test:e2e` 로 따로 돌리고, 화면 흐름을 바꾼 작업에�
 ## 5. 마무리
 
 - `frontend` 스킬 1.3 의 UI 검토를 돌린다.
-- 핸드오프로 구현한 화면이면 `design/<컨셉>/handoff.md` 의 상태를 갱신한다(`frontend:handoff` 6절).
+- 핸드오프로 구현한 화면이면 `design/<컨셉>/handoff.md` 의 상태를 갱신한다(`developer:handoff` 6절).
 - 커밋 메시지는 `frontend` 스킬 1.5 를 따른다.

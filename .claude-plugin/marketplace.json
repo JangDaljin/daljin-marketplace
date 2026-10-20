@@ -16,7 +16,7 @@
     {
       "name": "developer",
       "source": "./plugins/developer",
-      "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 MCP와 언어별 개발 하네스"
+      "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 MCP, 서버 하네스(backend, java, nestjs), 프론트엔드 하네스(frontend, nextjs, Figma handoff, ui-review)"
     },
     {
       "name": "librarian",
@@ -27,11 +27,6 @@
       "name": "designer",
       "source": "./plugins/designer",
       "description": "디자인하는 직업 페르소나. 팔레트와 레이아웃을 아티팩트로 승인받고 Figma 에 디자인 모음집으로 올리는 스킬과 Figma MCP"
-    },
-    {
-      "name": "frontend",
-      "source": "./plugins/frontend",
-      "description": "프론트엔드 구현 페르소나. Figma 디자인 모음집을 읽어 shadcn/ui 위에 구현하는 공통 규칙, Next.js 하네스, 핸드오프, UI 검토"
     },
     {
       "name": "frontend-design",
@@ -78,6 +73,7 @@
   "renames": {
     "daljin-doc": "writer",
     "daljin-writer": "writer",
-    "daljin-developer": "developer"
+    "daljin-developer": "developer",
+    "frontend": "developer"
   }
 }
