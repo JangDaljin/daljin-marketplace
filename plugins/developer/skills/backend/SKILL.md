@@ -96,7 +96,7 @@ description: 언어와 상관없이 모든 백엔드 서버 작업에 적용하�
 | 시간을 나타내는 컬럼 | `_at` 으로 끝낸다 | `created_at`, `deleted_at`, `last_login_at` |
 | 누구인지 나타내는 컬럼 | `_by` 로 끝낸다 | `created_by`, `approved_by` |
 | 기본 키 | `pk_` 로 시작한다: `pk_<테이블>` | `pk_orders` |
-| 외래 키 | `fk_` 로 시작한다: `fk_<테이블>_<컬럼>`. 기본은 만들지 않는다(2.3) | `fk_orders_user_id` |
+| 외래 키 | `fk_` 로 시작한다: `fk_<테이블>_<컬럼>`. 참조 컬럼마다 만든다(2.3) | `fk_orders_user_id` |
 | 인덱스 | `idx_` 로 시작한다: `idx_<테이블>_<컬럼>` | `idx_orders_user_id` |
 | 유니크 키 | `uk_` 로 시작한다: `uk_<테이블>_<컬럼>` | `uk_users_email` |
 
@@ -116,11 +116,16 @@ description: 언어와 상관없이 모든 백엔드 서버 작업에 적용하�
 
 ### 2.3 테이블 사이의 참조
 
-- ORM 에 연관관계를 선언하지 않는다. JPA 의 `@ManyToOne`, `@OneToMany`, `@OneToOne`, `@ManyToMany`, Prisma 의 관계 필드(`@relation`)를 쓰지 않는다.
-- 다른 테이블은 id 컬럼(`user_id`)으로 논리적으로만 참조한다. Entity 에도 id 값(`userId`)만 둔다.
-- 물리 FK 제약은 만들지 않는다. 사용자가 특정 테이블에 FK 를 요청할 때만 만들고, 이름은 2.1 의 `fk_` 규칙을 따른다.
-- 테이블을 함께 읽어야 하면 쿼리에서 id 로 조인하거나, 나눠 조회한 뒤 id 로 묶는다.
-- 참조 컬럼은 조회 패턴을 보고 인덱스(`idx_`)를 건다. FK 가 없어 DB 가 인덱스를 대신 만들어 주지 않는다.
+FK 는 DB 에 두고, ORM 연관관계는 두지 않는다. 둘을 분리하는 이유는 FK 는 정합성과 조인의 기준이고, 연관관계는 lazy/eager 로딩, N+1, fetch join, 영속성 전이처럼 쿼리 동작을 ORM 에 맡기는 장치라서다. 조회 동작은 항상 쿼리에 직접 적는다.
+
+- ORM 에 연관관계를 절대 선언하지 않는다. JPA 의 `@OneToMany`, `@ManyToOne`, `@OneToOne`, `@ManyToMany`, `@JoinColumn`, `@ElementCollection`, Prisma 의 관계 필드(`@relation`)와 관계 목록 필드, TypeORM 의 `@OneToMany` 류 데코레이터 모두 금지다. 따라서 `fetch = LAZY`, `fetch = EAGER`, `cascade`, `orphanRemoval`, `include`, `@EntityGraph`, fetch join 도 쓸 일이 없고 쓰지 않는다.
+- Entity(모델)는 다른 테이블을 id 값(`userId`)으로만 가진다. 다른 Entity 객체를 필드로 두지 않는다.
+- 참조 컬럼(`user_id`)마다 물리 FK 제약을 만든다. 이름은 2.1 의 `fk_` 규칙을 따른다. FK 는 데이터 정합성과 조인 기준을 DB 에 남기는 용도이지, ORM 이 객체 그래프를 만드는 용도가 아니다.
+  - FK 의 `ON DELETE` 는 기본 `RESTRICT`(아무것도 지정하지 않음)다. `CASCADE` 는 자식 행을 부모와 함께 지워야 하는 것이 분명하고 사용자가 허락했을 때만 쓴다.
+  - 참조 대상이 soft delete 테이블이어도 FK 는 그대로 둔다. soft delete 는 행을 지우지 않으므로 충돌하지 않는다.
+  - 외부 시스템의 id 처럼 같은 DB 에 없는 값을 가리키는 컬럼에는 FK 를 걸지 않는다.
+- 테이블을 함께 읽어야 하면 쿼리에서 FK 컬럼으로 직접 조인한다(QueryDSL, SQL). 조인이 필요 없으면 나눠 조회한 뒤 id 로 묶는다. 어느 쪽이든 어떤 테이블을 언제 읽는지가 코드에 보여야 한다.
+- 참조 컬럼에는 조회 패턴을 보고 인덱스(`idx_`)를 건다. PostgreSQL 은 FK 를 만들어도 인덱스를 자동으로 만들지 않는다. MySQL(InnoDB)은 FK 컬럼에 인덱스를 자동으로 만들지만, 이름을 직접 정하기 위해 `idx_` 규칙으로 먼저 만든다.
 
 ### 2.4 시간
 

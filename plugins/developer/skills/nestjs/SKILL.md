@@ -253,7 +253,8 @@ export { CreateUserRequest };
 - 생성된 클라이언트(`src/generated/prisma`)는 커밋하지 않는다.
 - 모델 필드는 camelCase(`createdAt`)로 쓰고 `@map("created_at")` 으로 snake_case 컬럼에 연결한다. 컬럼 이름 규칙은 `backend` 스킬 2.1절을 따른다.
 - 기본 키, 인덱스, 유니크 키는 `map` 으로 이름을 정한다: `@id(map: "pk_orders")`, `@@index([userId], map: "idx_orders_user_id")`, `@@unique([email], map: "uk_users_email")`
-- 관계 필드(`@relation`)와 관계 목록 필드를 선언하지 않는다. 다른 테이블은 `userId Int` 같은 스칼라 필드로만 참조한다(`backend` 스킬 2.3절). 관계 필드가 없으면 Prisma 가 FK 를 만들지 않는다.
+- 관계 필드(`@relation`)와 관계 목록 필드를 절대 선언하지 않는다. 다른 테이블은 `userId Int` 같은 스칼라 필드로만 참조한다(`backend` 스킬 2.3절). 그래서 `include`, 중첩 `select`, 중첩 쓰기(`create: { ... }`)는 코드에 나타나지 않는다.
+- 관계 필드가 없으면 Prisma 는 FK 를 만들지 않으므로, FK 제약은 마이그레이션 SQL 에 직접 넣는다. `prisma migrate dev --create-only` 로 SQL 을 만든 뒤 `ALTER TABLE orders ADD CONSTRAINT fk_orders_user_id FOREIGN KEY (user_id) REFERENCES users (id);` 를 추가하고 적용한다(DB 코멘트와 같은 방식). 이름은 `backend` 스킬 2.1절의 `fk_` 규칙, `ON DELETE` 는 기본 RESTRICT 다. `prisma migrate diff` 는 이 FK 를 스키마 드리프트로 보지 않는다. Prisma 가 모르는 제약이기 때문이다.
 - 여러 테이블을 함께 읽어야 하면 repository 에서 나눠 조회한 뒤 id 로 묶는다. 한 번에 조인해야 하면 repository 안에서만 `$queryRaw` 로 쓴다.
 - 감사 컬럼(`backend` 스킬 2.5절): `createdAt DateTime @default(now()) @db.Timestamptz @map("created_at")`, `updatedAt DateTime @updatedAt @db.Timestamptz @map("updated_at")`. `@updatedAt` 은 DB 가 아니라 Prisma Client 가 채운다. `createdBy`, `updatedBy` 는 repository 공통 처리에서 로그인 사용자 id 로 채운다.
 - 시각 필드는 `DateTime @db.Timestamptz` 로 선언한다(PostgreSQL). Prisma 는 `DateTime` 을 UTC 로 읽고 쓴다(`backend` 스킬 2.4절).

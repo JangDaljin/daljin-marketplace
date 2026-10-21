@@ -1,6 +1,6 @@
 ---
 name: java
-description: Java/Spring Boot 서버를 개인 규약대로 만들고 고치는 하네스. Gradle 멀티 모듈(api, core, infra)과 계층별 패키지, 3 Layer 구조, Google Java Style, Hibernate + JPA + QueryDSL(OpenFeign, 연관관계 없이 id 참조), Liquibase, Swagger, Log4j2 + SLF4J 로깅, JSpecify, RestClient, 가상 스레드, JUnit 5 테스트, push 전 검증 순서를 정한다. Spring Boot 서버를 새로 만들거나, 이 규약을 따르는 Java 서버 레포에서 기능을 추가하거나 고칠 때, "/developer:java" 요청 시 사용.
+description: Java/Spring Boot 서버를 개인 규약대로 만들고 고치는 하네스. Gradle 멀티 모듈(api, core, infra)과 계층별 패키지, 3 Layer 구조, Google Java Style, Hibernate + JPA + QueryDSL(OpenFeign, 연관관계 없이 id 참조, FK 는 Liquibase 로), Liquibase, Swagger, Log4j2 + SLF4J 로깅, JSpecify, RestClient, 가상 스레드, JUnit 5 테스트, push 전 검증 순서를 정한다. Spring Boot 서버를 새로 만들거나, 이 규약을 따르는 Java 서버 레포에서 기능을 추가하거나 고칠 때, "/developer:java" 요청 시 사용.
 ---
 
 # Java 하네스
@@ -20,7 +20,7 @@ Java/Spring Boot 서버 작업을 시작 전 준비, 구현, 검증, 마무리 �
 | 빌드 | Gradle (Kotlin DSL), 멀티 모듈 |
 | 서버 구조 | 3 Layer (신규 서버는 Port-Adapter 검토) |
 | 데이터베이스 | PostgreSQL (두 번째 선택 MySQL) |
-| ORM | Hibernate + JPA + QueryDSL (OpenFeign 포크 `io.github.openfeign.querydsl`). 연관관계 매핑은 쓰지 않는다 |
+| ORM | Hibernate + JPA + QueryDSL (OpenFeign 포크 `io.github.openfeign.querydsl`). 연관관계 매핑은 쓰지 않고 FK 는 DB 에만 둔다 |
 | DB 마이그레이션 | Liquibase |
 | 린트, 포맷 | Google Java Style (Checkstyle `google_checks.xml`, Spotless + google-java-format) |
 | API 문서 | springdoc-openapi (Swagger) |
@@ -127,7 +127,7 @@ Java/Spring Boot 서버 작업을 시작 전 준비, 구현, 검증, 마무리 �
 - `spring.jpa.open-in-view` 는 `false` 로 둔다. Controller 와 뷰에서 영속성 컨텍스트를 쓰지 않게 하기 위해서다.
 - Request/Response DTO 는 `record` 로 만든다. 변환은 DTO 의 정적 팩터리로 쓴다: `UserResponse.from(user)`
 - Entity 에는 `@Getter`, `@NoArgsConstructor(access = AccessLevel.PROTECTED)` 를 쓴다. `@Setter`, `@Data` 는 쓰지 않는다. 상태 변경은 의미 있는 이름의 메서드로 한다.
-- Entity 에 연관관계 애노테이션(`@ManyToOne`, `@OneToMany`, `@OneToOne`, `@ManyToMany`, `@JoinColumn`)을 쓰지 않는다. 다른 테이블은 id 필드(`private Long userId;`)로만 참조한다(`backend` 스킬 2.3절).
+- Entity 에 연관관계 애노테이션(`@ManyToOne`, `@OneToMany`, `@OneToOne`, `@ManyToMany`, `@JoinColumn`, `@ElementCollection`)을 절대 쓰지 않는다. 다른 테이블은 id 필드(`private Long userId;`)로만 참조한다(`backend` 스킬 2.3절). 그래서 `FetchType`, `cascade`, `orphanRemoval`, `@EntityGraph`, `fetchJoin()` 은 코드에 나타나지 않는다. FK 제약은 Entity 가 아니라 Liquibase 가 만든다(2.5절).
 - id 는 `@GeneratedValue(strategy = GenerationType.IDENTITY)` 로 두고, Liquibase 에서는 `bigint` `autoIncrement: true` 로 만든다. 전략을 생략하면 Hibernate 가 시퀀스를 찾아 changelog 와 맞지 않는다.
 - enum 필드는 `@Enumerated(EnumType.STRING)` 으로 저장한다.
 - 시각 필드는 `ZonedDateTime` 을 쓴다. `LocalDateTime` 은 타임존 정보가 없어 쓰지 않는다.
@@ -139,7 +139,7 @@ Java/Spring Boot 서버 작업을 시작 전 준비, 구현, 검증, 마무리 �
 - Hibernate + JPA + QueryDSL(OpenFeign 포크)을 쓴다.
 - 단순 CRUD 는 Spring Data JPA Repository 메서드로 쓴다.
 - 조건이 바뀌는 동적 쿼리와 복잡한 조회는 QueryDSL 로 쓴다. `core` 의 `repository` 에 `XxxRepositoryCustom` 인터페이스를, `infra` 의 같은 패키지에 `XxxRepositoryImpl` 구현을 두고 구현에서 `JPAQueryFactory` 를 쓴다.
-- 연관관계가 없으므로 조인은 id 로 직접 건다.
+- 연관관계가 없으므로 조인은 FK 컬럼으로 직접 건다. Hibernate 가 lazy/eager 로 몰래 쿼리를 더 날리는 일이 없고, 어떤 테이블을 읽는지 쿼리에 그대로 보인다.
 
 ```java
 queryFactory
@@ -157,7 +157,7 @@ queryFactory
 - 파일 하나에 changeSet 하나를 둔다. changeSet `id` 는 파일 이름(확장자 제외), `author` 는 git 사용자 이름으로 쓴다.
 - 이미 적용된 changeSet 은 고치지 않고 새 파일을 추가한다.
 - 기본 키, 인덱스, 유니크 키 이름은 `backend` 스킬 2.1절대로 Liquibase changeSet(`primaryKeyName`, `uniqueConstraintName`, `indexName`)에 적는다. Entity 에도 `@Index(name = "idx_...")`, `@UniqueConstraint(name = "uk_...")` 로 똑같이 적는다.
-- `addForeignKeyConstraint` 와 `foreignKeyName` 은 쓰지 않는다. 사용자가 FK 를 요청한 경우만 예외다.
+- 참조 컬럼마다 `addForeignKeyConstraint` 로 FK 를 만들고 `constraintName` 은 `backend` 스킬 2.1절의 `fk_` 규칙으로 적는다(`fk_orders_user_id`). `onDelete` 는 기본으로 적지 않는다(RESTRICT). Entity 에는 `@JoinColumn` 이 없으므로 FK 는 Liquibase 에만 있고 `ddl-auto: validate` 는 FK 를 검사하지 않는다.
 - DB 코멘트(`backend` 스킬 2.2절)는 Liquibase 의 `remarks` 로 단다. 새 테이블은 `createTable` 과 각 `column` 에 `remarks` 를 넣고, 기존 테이블은 `setTableRemarks`, `setColumnRemarks` 로 단다. 스키마의 기준은 Liquibase 이므로 Entity 의 `@Comment` 는 필수가 아니다.
 - 시각 컬럼은 PostgreSQL 에서 `timestamptz` 로 만든다.
 - Entity 필드는 camelCase(`createdAt`)로 쓴다. Spring Boot 기본 이름 전략이 snake_case 컬럼(`created_at`)으로 바꾼다.
