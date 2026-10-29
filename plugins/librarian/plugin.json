@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "librarian",
+  "version": "2.0.0",
+  "description": "지식베이스를 관리하는 사서 페르소나. 개인 지식베이스(daljin-knowledge-base)를 찾고 정리한다",
+  "author": {
+    "name": "Wonjin Jang"
+  },
+  "keywords": [
+    "knowledge-base",
+    "search",
+    "librarian"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "developerName": "Wonjin Jang",
+        "displayName": "Librarian",
+        "shortDescription": "지식베이스를 관리하는 사서 페르소나. 개인 지식베이스(daljin-knowledge-base)를 찾고 정리한다"
+      },
+      "hooks": "./hooks/hooks.json"
+    }
+  }
+}

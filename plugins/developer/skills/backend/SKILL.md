@@ -290,3 +290,5 @@ description: 언어와 상관없이 모든 백엔드 서버 작업에 적용하�
 - 인증과 권한 검사는 Controller 에 들어가기 전 공통 장치(가드, 필터)에서 한다. 리소스 소유자 확인(내 주문인지)은 Service 에서 한다.
 - 인증이 없거나 실패하면 401, 권한이 없으면 403 으로 응답한다.
 - 감사 컬럼의 `created_by`, `updated_by` 는 인증된 사용자 id 로 채운다(2.5절).
+
+Codex에서는 이 SKILL.md 기준 `../../agents/backend-reviewer.md`를 읽고 사용 가능한 서브에이전트에 그 지침을 전달한다. 서브에이전트 기능이 없으면 같은 지침으로 직접 리뷰하고 컨텍스트가 분리되지 않았음을 알린다. `developer:스킬` 표기는 developer 플러그인의 `skills/<스킬>/SKILL.md`를 뜻한다.

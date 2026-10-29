@@ -18,8 +18,10 @@ description: 개인 지식베이스(daljin-knowledge-base)에서 질문이나 �
 
 다음 스크립트가 첫 줄에 지식베이스 루트를, 둘째 줄에 쓰기 가능 여부를 출력한다. 아래에서 `<KB>`는 이 루트를 뜻한다.
 
+스크립트 경로의 `<이 SKILL.md가 있는 폴더>`를 실제 설치된 이 파일의 폴더 절대 경로로 바꿔 실행한다.
+
 ```bash
-sh "${CLAUDE_PLUGIN_ROOT}/scripts/kb-root.sh"
+sh "<이 SKILL.md가 있는 폴더>/../../scripts/kb-root.sh"
 ```
 
 스크립트가 실패하면 지식베이스가 이 기기에 없는 것이다. 사용자에게 `git@github.com:JangDaljin/daljin-knowledge-base.git`을 `~/development/daljin-knowledge-base`에 복제할지 묻고, 승인받으면 복제한 뒤 다시 찾는다.

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "designer",
+  "version": "0.7.0",
+  "description": "디자인하는 직업 페르소나. 색 팔레트와 레이아웃을 아티팩트로 먼저 증명하고 승인받은 뒤 Figma에 정제된 디자인 모음집으로 올린다",
+  "author": {
+    "name": "Wonjin Jang"
+  },
+  "keywords": [
+    "design",
+    "figma",
+    "palette",
+    "layout",
+    "design-tokens",
+    "accessibility",
+    "handoff"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "developerName": "Wonjin Jang",
+        "displayName": "Designer",
+        "shortDescription": "디자인하는 직업 페르소나. 색 팔레트와 레이아웃을 아티팩트로 먼저 증명하고 승인받은 뒤 Figma에 정제된 디자인 모음집으로 올린다"
+      }
+    }
+  }
+}

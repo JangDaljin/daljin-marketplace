@@ -39,8 +39,10 @@ description: 디자인 컨셉에서 색 팔레트를 만들어 아티팩트로 �
 
 후보마다 검사 스크립트를 돌린다. 의미 토큰의 글자와 바탕 조합을 라이트와 다크 모두 검사해 WCAG AA 통과 여부를 표로 낸다.
 
+스크립트 경로의 `<이 SKILL.md가 있는 폴더>`를 실제 설치된 이 파일의 폴더 절대 경로로 바꿔 실행한다.
+
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/palette/scripts/contrast.py" design/<컨셉>/tokens.<후보>.json
+python3 "<이 SKILL.md가 있는 폴더>/scripts/contrast.py" design/<컨셉>/tokens.<후보>.json
 ```
 
 - 실패한 조합이 있으면 원시 단계를 조정해 통과시킨 뒤 다시 돌린다. 조정해도 통과하지 못하는 조합은 아티팩트에 실패로 표시하고 대안을 적는다.

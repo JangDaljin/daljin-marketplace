@@ -1,0 +1,31 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "developer",
+  "version": "0.15.0",
+  "description": "개발하는 직업 페르소나. 코드 탐색·문서 조회 도구, 서버(backend, java, nestjs)와 프론트엔드(frontend, design-library, nextjs, implement-design, ui-review) 하네스, 커밋 전 리뷰 에이전트(backend-reviewer, frontend-reviewer)",
+  "author": {
+    "name": "Wonjin Jang"
+  },
+  "keywords": [
+    "development",
+    "java",
+    "harness",
+    "node",
+    "nestjs",
+    "frontend",
+    "nextjs",
+    "react",
+    "shadcn",
+    "figma",
+    "implement-design"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "developerName": "Wonjin Jang",
+        "displayName": "Developer",
+        "shortDescription": "개발하는 직업 페르소나. 코드 탐색·문서 조회 도구, 서버(backend, java, nestjs)와 프론트엔드(frontend, design-library, nextjs, implement-design, ui-review) 하네스, 커밋 전 리뷰 에이전트(backend-reviewer, frontend-reviewer)"
+      }
+    }
+  }
+}

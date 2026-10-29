@@ -73,8 +73,10 @@ description: 승인된 팔레트 토큰으로 화면과 컴포넌트 레이아�
 
 올리기 전에 검사 스크립트를 돌린다. 변수 선언 블록 밖에 색 값, 토큰에 없는 px 값이 있으면 실패한다.
 
+스크립트 경로의 `<이 SKILL.md가 있는 폴더>`를 실제 설치된 이 파일의 폴더 절대 경로로 바꿔 실행한다.
+
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/layout/scripts/check-tokens.py" design/<컨셉>/tokens.json design/<컨셉>/layout-<화면>.html
+python3 "<이 SKILL.md가 있는 폴더>/scripts/check-tokens.py" design/<컨셉>/tokens.json design/<컨셉>/layout-<화면>.html
 ```
 
 - 실패하면 토큰으로 바꾼다. 필요한 값이 토큰에 없으면 2절 토큰 추가로 돌아가고, 색이면 `designer:palette` 로 돌아간다.

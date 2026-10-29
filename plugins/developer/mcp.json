@@ -1,0 +1,79 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "Authorization": "${CONTEXT7_API_KEY:-}"
+      },
+      "type": "streamable-http"
+    },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context=codex",
+        "--project-from-cwd",
+        "--open-web-dashboard",
+        "False"
+      ],
+      "type": "stdio"
+    },
+    "codegraph": {
+      "command": "codegraph",
+      "args": [
+        "serve",
+        "--mcp"
+      ],
+      "type": "stdio"
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_ACCESS_TOKEN}"
+      },
+      "type": "stdio"
+    },
+    "huggingface": {
+      "url": "https://huggingface.co/mcp",
+      "headers": {
+        "Authorization": "Bearer ${HF_TOKEN:-}"
+      },
+      "type": "streamable-http"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "type": "stdio"
+    },
+    "notion": {
+      "url": "https://mcp.notion.com/mcp",
+      "type": "streamable-http"
+    },
+    "atlassian": {
+      "command": "uvx",
+      "args": [
+        "mcp-atlassian"
+      ],
+      "type": "stdio"
+    },
+    "slack": {
+      "url": "https://mcp.slack.com/mcp",
+      "type": "streamable-http"
+    },
+    "figma": {
+      "url": "https://mcp.figma.com/mcp",
+      "type": "streamable-http"
+    }
+  }
+}
