@@ -49,8 +49,10 @@ description: 사람이 읽을 문서를 새로 쓰거나 고쳐 쓸 때 따르�
 4. 본문을 쓴 뒤 필요 없는 절부터 지우고, 그다음 문장과 단어를 줄인다.
 5. 점검한다. 파일로 저장했다면 점검 스크립트를 돌린다. 길게 풀어 쓰는 글이면 `--long-form`을 붙인다.
 
+   스크립트 경로의 `<이 SKILL.md가 있는 폴더>`를 실제 설치된 이 파일의 폴더 절대 경로로 바꿔 실행한다.
+
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/skills/review/scripts/lint.py" [--long-form] <파일 경로>
+   python3 "<이 SKILL.md가 있는 폴더>/../review/scripts/lint.py" [--long-form] <파일 경로>
    ```
 
    스크립트는 겉모양만 본다. "위반 없음"은 좋은 글이라는 뜻이 아니다. 1번 원칙(필요한 것만)과 두괄식은 직접 확인한다. 전체 점검 절차는 `/writer:review`를 따른다.

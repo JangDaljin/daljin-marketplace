@@ -1,0 +1,56 @@
+{
+  "name": "daljin-marketplace",
+  "interface": {
+    "displayName": "Daljin Marketplace"
+  },
+  "plugins": [
+    {
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "name": "writer",
+      "source": {
+        "path": "./plugins/writer",
+        "source": "local"
+      }
+    },
+    {
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "name": "developer",
+      "source": {
+        "path": "./plugins/developer",
+        "source": "local"
+      }
+    },
+    {
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "name": "librarian",
+      "source": {
+        "path": "./plugins/librarian",
+        "source": "local"
+      }
+    },
+    {
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "name": "designer",
+      "source": {
+        "path": "./plugins/designer",
+        "source": "local"
+      }
+    }
+  ]
+}

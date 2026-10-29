@@ -19,8 +19,10 @@ description: 이미 쓴 문서를 문서 작성 원칙에 맞는지 점검하고
 
 ## 2. 기계 점검
 
+스크립트 경로의 `<이 SKILL.md가 있는 폴더>`를 실제 설치된 이 파일의 폴더 절대 경로로 바꿔 실행한다.
+
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/review/scripts/lint.py" [--long-form] <파일 경로>
+python3 "<이 SKILL.md가 있는 폴더>/scripts/lint.py" [--long-form] <파일 경로>
 ```
 
 - 붙여 넣은 글은 경로 대신 `-`를 주고 표준 입력으로 넘긴다.

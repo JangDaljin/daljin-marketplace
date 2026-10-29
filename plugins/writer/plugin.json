@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "writer",
+  "version": "0.6.0",
+  "description": "글 쓰는 직업 페르소나. 사람이 읽기 좋은 한국어 문서를 쓰고 점검한다",
+  "author": {
+    "name": "Wonjin Jang"
+  },
+  "keywords": [
+    "document",
+    "writing",
+    "korean",
+    "review"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "developerName": "Wonjin Jang",
+        "displayName": "Writer",
+        "shortDescription": "글 쓰는 직업 페르소나. 사람이 읽기 좋은 한국어 문서를 쓰고 점검한다"
+      }
+    }
+  }
+}

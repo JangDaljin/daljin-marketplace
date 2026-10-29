@@ -12,8 +12,10 @@ description: 현재 세션에서 나온 재사용 가치 있는 지식·결정·
 
 ### 0. KB 위치 확인과 최신화 (항상)
 
+스크립트 경로의 `<이 SKILL.md가 있는 폴더>`를 실제 설치된 이 파일의 폴더 절대 경로로 바꿔 실행한다.
+
 ```bash
-sh "${CLAUDE_PLUGIN_ROOT}/scripts/kb-root.sh"
+sh "<이 SKILL.md가 있는 폴더>/../../scripts/kb-root.sh"
 ```
 
 첫 줄이 `<KB>`다. 스크립트가 실패하면 로컬 작업 복제본이 없는 것이다. 사용자에게 `git@github.com:JangDaljin/daljin-knowledge-base.git`을 `~/development/daljin-knowledge-base`에 복제할지 묻고, 승인받으면 복제한 뒤 다시 확인한다.
@@ -23,7 +25,7 @@ sh "${CLAUDE_PLUGIN_ROOT}/scripts/kb-root.sh"
 ### 1. 규칙 먼저 로드 (항상)
 
 작업 전 KB의 최신 규칙을 읽어 그대로 따른다. 아래 파일이 단일 출처다:
-- `<KB>/CLAUDE.md`
+- `<KB>/AGENTS.md` (있으면), `<KB>/CLAUDE.md`
 - `<KB>/knowledge/CLASSIFICATION.md` (분류·front-matter·피드백 분류·압축)
 - `<KB>/knowledge/COMMIT-GUIDE.md` (커밋 규칙)
 - `<KB>/knowledge/INDEX.md` (현재 서가 목록)
