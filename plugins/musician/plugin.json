@@ -1,0 +1,25 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "musician",
+  "version": "0.1.0",
+  "description": "음악하는 직업 페르소나. 유튜브 영상이나 오디오 파일에서 원하는 악기 소리만 뽑거나 빼서 연습용 음원을 만든다",
+  "author": {
+    "name": "Wonjin Jang"
+  },
+  "keywords": [
+    "music",
+    "audio",
+    "stem-separation",
+    "demucs",
+    "yt-dlp"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "developerName": "Wonjin Jang",
+        "displayName": "Musician",
+        "shortDescription": "음악하는 직업 페르소나. 유튜브 영상이나 오디오 파일에서 원하는 악기 소리만 뽑거나 빼서 연습용 음원을 만든다"
+      }
+    }
+  }
+}
