@@ -31,7 +31,7 @@
     {
       "name": "musician",
       "source": "./plugins/musician",
-      "description": "음악하는 직업 페르소나. 유튜브 영상이나 오디오 파일에서 yt-dlp 와 demucs 로 원하는 악기 소리만 뽑거나 빼서 연습용 음원을 만드는 스킬(stem-split)"
+      "description": "음악하는 직업 페르소나. 유튜브 영상이나 오디오 파일에서 yt-dlp 와 demucs 로 원하는 악기 소리만 뽑거나 빼는 스킬(stem-split)과, 드럼만 분리해 카운트인 4박과 드럼 앞 빈 구간 클릭을 붙이는 스킬(drum-beat)"
     },
     {
       "name": "frontend-design",

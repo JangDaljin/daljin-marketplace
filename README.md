@@ -10,7 +10,7 @@ Claude Code와 Codex에서 사용하는 플러그인 모음이에요.
 | developer | 코드 탐색, 문서 조회, 협업 도구 연결을 모아 서버와 프론트엔드 개발을 도와요. 프론트엔드는 designer가 넘긴 디자인을 그대로 shadcn/ui 위에 구현해요 |
 | librarian | 개인 지식베이스에서 필요한 지식을 찾고, 작업이 끝나면 정리해 넣어요 |
 | designer | 색 팔레트와 레이아웃을 아티팩트로 먼저 보여 주고 승인받은 뒤 Figma에 디자인 모음집으로 올리고, 전달 명세를 써서 개발자에게 넘겨요 |
-| musician | 유튜브 영상이나 오디오 파일에서 원하는 악기 소리만 뽑거나 빼서 연습용 음원을 만들어요 |
+| musician | 유튜브 영상이나 오디오 파일에서 원하는 악기 소리만 뽑거나 빼서 연습용 음원을 만들고, 카운트인을 붙인 드럼 비트를 만들어요 |
 
 Claude Code에서는 다음 명령으로 설치해요.
 
@@ -24,10 +24,12 @@ designer는 외부 디자인 스킬(frontend-design, ui-ux-pro-max, hallmark, em
 musician은 yt-dlp로 유튜브 음원을 받고 demucs로 악기를 나눠요.
 결과는 기본으로 mp3 320kbps로 저장하고, 저장할 때마다 형식을 물어봐요.
 처음 쓸 때 빠진 도구가 있으면 설치 명령을 보여 주고 승인을 받은 뒤 설치해요.
+드럼 비트는 드럼 앞에 카운트인 4박을 넣고, 드럼이 곡 중간에 들어오면 그 앞 빈 구간에 매 박 클릭을 넣어요.
+드럼 비트의 박 찾기에는 beat_this를 쓰고, uv가 스크립트에 적힌 의존성을 설치해요.
 macOS에서는 아래 명령으로 미리 준비할 수 있어요.
 
     claude plugin install musician@daljin-marketplace
-    brew install yt-dlp ffmpeg
+    brew install yt-dlp ffmpeg uv
     uv tool install demucs --with numpy
 
 Codex에서는 마켓플레이스를 등록한 뒤 원하는 플러그인을 설치해요. 아래는 `plugin add`를 지원하는 Codex CLI 기준이에요.

@@ -1,6 +1,6 @@
 ---
 name: stem-split
-description: 유튜브 영상 주소나 오디오 파일에서 demucs 로 원하는 악기 소리만 뽑거나(보컬, 드럼, 베이스, 기타, 피아노) 특정 악기를 뺀 연습용 음원(MR, 드럼 없는 반주)을 만든다. yt-dlp 로 음원을 내려받고 기본으로 mp3 320kbps 로 저장한다. "유튜브에서 드럼만 뽑아줘", "이 곡 MR 만들어줘", "보컬 제거", "베이스 소리만", "악기 분리", "stem 분리", "/musician:stem-split <주소>" 같은 요청에 사용. Codex 에서는 "$stem-split" 으로도 호출한다.
+description: 유튜브 영상 주소나 오디오 파일에서 demucs 로 원하는 악기 소리만 뽑거나(보컬, 드럼, 베이스, 기타, 피아노) 특정 악기를 뺀 연습용 음원(MR, 드럼 없는 반주)을 만든다. yt-dlp 로 음원을 내려받고 기본으로 mp3 320kbps 로 저장한다. "유튜브에서 보컬만 뽑아줘", "이 곡 MR 만들어줘", "보컬 제거", "베이스 소리만", "악기 분리", "stem 분리", "/musician:stem-split <주소>" 같은 요청에 사용. 드럼만 뽑는 요청은 카운트인을 붙이는 drum-beat 스킬이 맡는다. Codex 에서는 "$stem-split" 으로도 호출한다.
 ---
 
 # 악기 분리
@@ -15,7 +15,8 @@ description: 유튜브 영상 주소나 오디오 파일에서 demucs 로 원하
 
 - 입력: 유튜브 영상 주소 하나 또는 로컬 오디오 파일 경로. 재생목록 주소면 영상 하나를 골라 달라고 한다.
 - 악기: `references/instruments.md` 표로 `--stem` 값을 정한다. 말이 없으면 묻고, 선택지에 "전부(보컬, 드럼, 베이스, 나머지)"를 넣는다. 표에 없는 악기(신스, 현악, 관악 등)는 따로 뽑을 수 없고 `other` 에 섞여 나온다고 알린 뒤 `other` 를 받을지 묻는다.
-- 뽑기와 빼기: "드럼만", "보컬만"은 뽑기, "MR", "반주만", "드럼 빼고"는 빼기(`--minus`)다. 어느 쪽인지 애매하면 묻는다.
+- 드럼만 뽑는 요청: `musician:drum-beat` 스킬로 넘긴다. 드럼 결과에는 카운트인 4박과 드럼 앞 빈 구간 클릭이 반드시 들어가야 하기 때문이다. 사용자가 클릭 없는 원본 드럼이라고 분명히 말했을 때만 여기서 `--stem drums` 로 처리한다. Codex 에서 `musician:drum-beat` 는 이 플러그인의 `skills/drum-beat/SKILL.md` 를 뜻한다.
+- 뽑기와 빼기: "베이스만", "보컬만"은 뽑기, "MR", "반주만", "드럼 빼고"는 빼기(`--minus`)다. 어느 쪽인지 애매하면 묻는다.
 - 저장 형식: 사용자가 형식을 말하지 않았으면 매번 묻는다. 첫 선택지는 기본값 mp3 320kbps 다.
 
 | 형식 | 옵션 | 설명 |
@@ -44,8 +45,8 @@ python3 "<이 SKILL.md가 있는 폴더>/scripts/stem.py" check
 ## 3. 실행
 
 ```bash
-# 유튜브에서 드럼만 mp3 320kbps 로
-python3 "<이 SKILL.md가 있는 폴더>/scripts/stem.py" run "<주소>" --stem drums
+# 유튜브에서 베이스만 mp3 320kbps 로
+python3 "<이 SKILL.md가 있는 폴더>/scripts/stem.py" run "<주소>" --stem bass
 
 # 보컬을 뺀 MR 을 wav 로
 python3 "<이 SKILL.md가 있는 폴더>/scripts/stem.py" run "<주소>" --stem vocals --minus --format wav
